@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ড্যাশবোর্ড - MK Healthcare</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dash-body">
+    <header class="main-header">
+        <div class="logo-area">
+            <h1>🏥 MK Healthcare</h1>
+            <span>ডিজিটাল হেলথ ও কেয়ার হাব</span>
+        </div>
+        <div class="user-nav">
+            <span id="welcomeUserMsg">স্বাগতম, ইউজার</span>
+            <button onclick="logout()" class="logout-btn">লগআউট</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="profile-card">
+            <h3>👤 আপনার হেলথ প্রোফাইল স্টেজ</h3>
+            <p><strong>নাম:</strong> <span id="profileName">-</span> | <strong>বয়স:</strong> <span id="profileAge">-</span> বছর | <strong>ঠিকানা:</strong> <span id="profileAddress">-</span></p>
+            <div class="stage-badge" id="profileStageBadge">স্টেজ: লোডিং...</div>
+        </section>
+
+        <section class="special-section disabled-corner">
+            <h2>♿ প্রতিবন্ধী ব্যক্তিদের বিশেষ সেবা কর্নার</h2>
+            <p>শারীরিক ও মানসিক প্রতিবন্ধী ব্যক্তিদের জন্য থেরাপি, লাইফস্টাইল এবং বিশেষ চিকিৎসা গাইডলাইন।</p>
+            <button onclick="openDisease('disability')" class="spec-btn">বিস্তারিত দেখুন</button>
+        </section>
+
+        <section class="medicine-tracker-box">
+            <h2>💊 প্রতিদিনের ওষুধের ডোজ ও ট্র্যাকিং সিস্টেম</h2>
+            <p>আপনার ডাক্তার যে ওষুধগুলো দিয়েছেন, তার নাম ও সময় এখানে যুক্ত করুন এবং খাওয়ার পর ডান (Done) করুন।</p>
+            
+            <form id="medTrackForm" onsubmit="addMedicine(event)">
+                <input type="text" id="medNameInput" placeholder="ওষুধের নাম ও শক্তি (যেমন: Napa Extra 500mg)" required>
+                <select id="medTimeInput" required>
+                    <option value="">খাওয়ার সময় নির্বাচন করুন</option>
+                    <option value="সকাল (খাবার আগে)">সকাল (খাবার আগে)</option>
+                    <option value="সকাল (খাবার পরে)">সকাল (খাবার পরে)</option>
+                    <option value="দুপুর (খাবার পরে)">দুপুর (খাবার পরে)</option>
+                    <option value="রাত (খাবার আগে)">রাত (খাবার আগে)</option>
+                    <option value="রাত (খাবার পরে)">রাত (খাবার পরে)</option>
+                </select>
+                <button type="submit" class="med-add-btn">ওষুধের তালিকায় যোগ করুন</button>
+            </form>
+
+            <ul id="medTrackerList" class="med-list">
+                </ul>
+        </section>
+
+        <h2 class="section-title">🩺 রোগভিত্তিক লক্ষণ, উপসর্গ ও প্রতিকার গাইড</h2>
+        <p class="section-desc">নিচের বিভাগগুলোতে ক্লিক করে যেকোনো রোগের বিস্তারিত লক্ষণ ও প্রতিকার জানুন:</p>
+
+        <div class="disease-grid">
+            <div class="disease-card" onclick="openDisease('autism')">👶 <h3>অটিজম ও শিশু সিন্ড্রোম</h3><p>অটিস্টিক শিশুদের লক্ষণ ও পরিচর্যা</p></div>
+            <div class="disease-card" onclick="openDisease('kidney')">🩺 <h3>কিডনি রোগ ও উপসর্গ</h3><p>কিডনি জটিলতা ও প্রাথমিক লক্ষণ</p></div>
+            <div class="disease-card" onclick="openDisease('hiv')">⚠️ <h3>এইচআইভি (HIV) তথ্য</h3><p>ঝুঁকি, লক্ষণ ও সচেতনতা</p></div>
+            <div class="disease-card" onclick="openDisease('urine')">💧 <h3>প্রস্রাব ইনফেকশন (UTI)</h3><p>জ্বালাপোড়া ও প্রতিকার</p></div>
+            <div class="disease-card" onclick="openDisease('allergy')">🤧 ### ঠান্ডা, কাশি ও এলার্জি</h3><p>দাস্ট এলার্জি ও শ্বাসকষ্ট</p></div>
+            <div class="disease-card" onclick="openDisease('skin')">✨ <h3>চর্মরোগ (Dermatology)</h3><p>একজিমা, চুলকানি ও ত্বকের সমস্যা</p></div>
+            <div class="disease-card" onclick="openDisease('hair')">💇 <h3>চুল পড়া সমস্যা</h3><p>চুল পড়ার কারণ ও ঘরোয়া প্রতিকার</p></div>
+            <div class="disease-card" onclick="openDisease('sexual')">❤️ <h3>যৌন স্বাস্থ্য সমস্যা</h3><p>সচেতনতা ও বিশেষজ্ঞ পরামর্শ</p></div>
+            <div class="disease-card" onclick="openDisease('heart')">🫀 <h3>হার্ট ও কার্ডিওলজি</h3><p>বুকে ব্যথা ও প্রেশার ম্যানেজমেন্ট</p></div>
+            <div class="disease-card" onclick="openDisease('diabetes')">🩸 <h3>ডায়াবেটিস কর্নার</h3><p>ব্লাড সুগার কন্ট্রোল ও ডায়েট</p></div>
+            <div class="disease-card" onclick="openDisease('neuro')">🧠 <h3>নিউরো (মস্তিষ্ক ও স্নায়ু)</h3><p>মাথা ব্যথা, স্ট্রোক ও প্যারালাইসিস</p></div>
+            <div class="disease-card" onclick="openDisease('gyne')">👩‍⚕️ <h3>গাইনি ও প্রসূতি সেবা</h3><p>মাতৃস্বাস্থ্য ও নারী স্বাস্থ্যসেবা</p></div>
+            <div class="disease-card" onclick="openDisease('gastric')">🔥 <h3>গ্যাস্ট্রিক ও আলসার</h3><p>বদহজম, বুকজ্বালা ও প্রতিকার</p></div>
+            <div class="disease-card" onclick="openDisease('fever')">🤒 <h3>ডেঙ্গু ও সাধারণ জ্বর</h3><p>লক্ষণ, টেস্ট ও সতর্কতা</p></div>
+            <div class="disease-card" onclick="openDisease('eye')">👁️ <h3>চক্ষু (আই কেয়ার)</h3><p>চোখ ওঠা, দৃষ্টিশক্তি ও যত্ন</p></div>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 <strong>MK Healthcare</strong> - সকল স্বাস্থ্য অধিকার সংরক্ষিত।</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f7f4;
+    margin: 0;
+    padding: 0;
+    color: #2c3e50;
+}
+
+/* হেডার ও ফুটার */
+.main-header {
+    background: #0077b6;
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.logo-area h1 { margin: 0; font-size: 24px; color: #caf0f8; }
+.logo-area span { font-size: 12px; color: #90e0ef; }
+.user-nav { display: flex; align-items: center; gap: 15px; }
+.logout-btn { background: #d90429; color: white; border: none; padding: 7px 14px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+
+.main-footer {
+    background: #1d3557;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 40px;
+    font-size: 13px;
+}
+
+/* অথেনটিকেশন পেজ স্টাইল */
+.auth-body {
+    background: linear-gradient(135deg, #0077b6, #00b4d8);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.auth-container {
+    background: white;
+    width: 90%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    box-sizing: border-box;
+}
+.brand-title { text-align: center; font-size: 26px; font-weight: bold; color: #0077b6; margin-bottom: 5px; }
+.brand-subtitle { text-align: center; font-size: 13px; color: #666; margin-bottom: 20px; }
+.tab-buttons { display: flex; margin-bottom: 20px; border-bottom: 2px solid #e0e0e0; }
+.tab-btn { flex: 1; padding: 10px; background: none; border: none; font-weight: bold; cursor: pointer; color: #666; }
+.tab-btn.active { color: #0077b6; border-bottom: 3px solid #0077b6; }
+.form-group { margin-bottom: 12px; }
+.form-group label { display: block; font-size: 12px; font-weight: bold; margin-bottom: 4px; color: #444; }
+.form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+.auth-btn { width: 100%; padding: 11px; background: #0077b6; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+.auth-btn:hover { background: #023e8a; }
+.register-submit { background: #2a9d8f; }
+.forgot-link { text-align: center; font-size: 12px; color: #0077b6; cursor: pointer; margin-top: 10px; }
+
+/* ড্যাশবোর্ড কন্টেইনার */
+.container { max-width: 1100px; margin: 25px auto; padding: 0 20px; box-sizing: border-box; }
+.profile-card { background: white; padding: 20px; border-radius: 8px; border-left: 5px solid #2a9d8f; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+.stage-badge { display: inline-block; background: #e0fbfc; color: #0077b6; padding: 5px 12px; border-radius: 20px; font-weight: bold; font-size: 13px; margin-top: 8px; }
+
+.special-section { background: #e8f5e9; border: 2px dashed #2a9d8f; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 25px; }
+.spec-btn { background: #2a9d8f; color: white; border: none; padding: 8px 18px; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+
+/* মেডিসিন ট্র্যাকার বক্স */
+.medicine-tracker-box { background: white; padding: 20px; border-radius: 8px; border: 1px solid #c7d5cc; margin-bottom: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+#medTrackForm { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
+#medTrackForm input, #medTrackForm select { flex: 1; min-width: 200px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+.med-add-btn { background: #2a9d8f; color: white; border: none; padding: 10px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; }
+.med-list { list-style: none; padding: 0; margin-top: 15px; }
+.med-list li { background: #f4fdf6; padding: 10px 15px; margin-bottom: 8px; border-radius: 5px; border: 1px solid #d8f3dc; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.med-list li.done { background: #d8f3dc; color: #1b4332; text-decoration: line-through; }
+.done-btn { background: #0077b6; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+
+/* রোগ গ্রিড */
+.section-title { font-size: 20px; color: #1d3557; margin-bottom: 5px; }
+.section-desc { color: #666; font-size: 14px; margin-bottom: 15px; }
+.disease-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+.disease-card { background: white; padding: 18px; border-radius: 8px; border: 1px solid #ddd; cursor: pointer; transition: 0.3s; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+.disease-card:hover { transform: translateY(-4px); border-color: #0077b6; box-shadow: 0 6px 12px rgba(0,119,182,0.15); }
+.disease-card h3 { margin: 8px 0 4px; color: #0077b6; font-size: 17px; }
+.disease-card p { font-size: 12px; color: #666; margin: 0; }
+
+/* ডিটেইলস পেজ ও মোডাল */
+.content-box { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.back-btn { background: #6c757d; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; }
+.modal-content { background: white; padding: 25px; border-radius: 8px; width: 320px; }
+.modal-content input { width: 100%; padding: 10px; margin-top: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+
+
+/* ==========================================
+   📱 মোবাইল ও ট্যাব রেসপন্সিভ মিডিয়া কোয়েরি (Media Queries)
+   ========================================== */
+
+/* ট্যাবলেট ও মাঝারি স্ক্রিন (৭৬৮ পিক্সেলের নিচে) */
+@media screen and (max-width: 768px) {
+    .disease-grid {
+        grid-template-columns: repeat(2, 1fr); /* ট্যাবে ২ কলাম করে দেখাবে */
+    }
+    .main-header {
+        padding: 12px 15px;
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    .container {
+        padding: 0 10px;
+    }
+}
+
+/* ছোট মোবাইল স্ক্রিন (৪৮০ পিক্সেলের নিচে) */
+@media screen and (max-width: 480px) {
+    .disease-grid {
+        grid-template-columns: 1fr; /* মোবাইলে সব কার্ড ১ কলামে নিচে নিচে দেখাবে */
+    }
+    .auth-container {
+        width: 95%;
+        padding: 20px;
+    }
+    #medTrackForm {
+        flex-direction: column;
+    }
+    .logo-area h1 {
+        font-size: 20px;
+    }
+}
