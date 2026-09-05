@@ -14,30 +14,68 @@
         </div>
         <div class="user-nav">
             <span id="welcomeUserMsg">স্বাগতম, ইউজার</span>
+            <button onclick="window.location.href='hospitals.html'" class="hosp-nav-btn">🏥 হাসপাতাল ডিরেক্টরি</button>
             <button onclick="logout()" class="logout-btn">লগআউট</button>
         </div>
     </header>
 
     <div class="container">
+        <!-- প্রোফাইল কার্ড -->
         <section class="profile-card">
-            <h3>👤 আপনার হেলথ প্রোফাইল স্টেজ</h3>
-            <p><strong>নাম:</strong> <span id="profileName">-</span> | <strong>বয়স:</strong> <span id="profileAge">-</span> বছর | <strong>ঠিকানা:</strong> <span id="profileAddress">-</span></p>
-            <div class="stage-badge" id="profileStageBadge">স্টেজ: লোডিং...</div>
+            <div class="profile-header-flex">
+                <div class="profile-img-box">
+                    <img id="profileAvatar" src="https://via.placeholder.com/90" alt="প্রোফাইল ছবি" style="width:90px; height:90px; border-radius:50%; object-fit:cover; border:3px solid #2a9d8f;">
+                </div>
+                <div class="profile-info-box" style="flex: 1;">
+                    <h3>👤 আপনার হেলথ প্রোফাইল</h3>
+                    <p><strong>নাম:</strong> <span id="profileName">-</span> | <strong>বয়স:</strong> <span id="profileAge">-</span> বছর</p>
+                    <p><strong>এলাকা:</strong> <span id="profileDistrict">-</span> জেলা, <span id="profileUpazila">-</span> উপজেলা</p>
+                    <p><strong>নিকটস্থ স্বাস্থ্যসেবা:</strong> <span id="profileNearestHosp" style="color:#e63946; font-weight:bold;">লোডিং...</span></p>
+                    <div class="stage-badge" id="profileStageBadge">স্টেজ: লোডিং...</div>
+                </div>
+                <div>
+                    <button onclick="openEditProfileModal()" class="spec-btn" style="background:#0077b6;">✏️ প্রোফাইল এডিট করুন</button>
+                </div>
+            </div>
         </section>
 
+        <!-- প্রোফাইল এডিট মোডাল -->
+        <div id="editProfileModal" class="modal" style="display:none;">
+            <div class="modal-content" style="width: 90%; max-width: 450px;">
+                <h3 style="color:#0077b6; margin-top:0;">✏️ প্রোফাইল এডিট করুন</h3>
+                <form onsubmit="saveProfileChanges(event)">
+                    <div class="form-group"><label>পূর্ণ নাম</label><input type="text" id="editName" required></div>
+                    <div class="form-group"><label>জেলা</label><input type="text" id="editDistrict" required></div>
+                    <div class="form-group"><label>উপজেলা</label><input type="text" id="editUpazila" required></div>
+                    <div class="form-group"><label>বয়স</label><input type="number" id="editAge" required></div>
+                    <div class="form-group">
+                        <label>গ্যালারি থেকে ছবি সিলেক্ট করুন</label>
+                        <input type="file" id="editImgFile" accept="image/*" style="padding: 5px;">
+                    </div>
+                    <button type="submit" class="auth-btn register-submit" style="margin-top:10px;">পরিবর্তন সেভ করুন</button>
+                    <button type="button" onclick="closeEditProfileModal()" class="auth-btn" style="background:#d90429; margin-top:5px;">বাতিল</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- প্রতিবন্ধী সেবা কর্নার -->
         <section class="special-section disabled-corner">
             <h2>♿ প্রতিবন্ধী ব্যক্তিদের বিশেষ সেবা কর্নার</h2>
             <p>শারীরিক ও মানসিক প্রতিবন্ধী ব্যক্তিদের জন্য থেরাপি, লাইফস্টাইল এবং বিশেষ চিকিৎসা গাইডলাইন।</p>
             <button onclick="openDisease('disability')" class="spec-btn">বিস্তারিত দেখুন</button>
         </section>
 
+        <!-- ওষুধের ডোজ ও ট্র্যাকার -->
         <section class="medicine-tracker-box">
             <h2>💊 প্রতিদিনের ওষুধের ডোজ ও ট্র্যাকিং সিস্টেম</h2>
-            <p>আপনার ডাক্তার যে ওষুধগুলো দিয়েছেন, তার নাম ও সময় এখানে যুক্ত করুন এবং খাওয়ার পর ডান (Done) করুন।</p>
+            <p>ওষুধের নাম লিখলেই নিচে সাজেশন আসবে, শুধু ক্লিক করুন!</p>
             
-            <form id="medTrackForm" onsubmit="addMedicine(event)">
-                <input type="text" id="medNameInput" placeholder="ওষুধের নাম ও শক্তি (যেমন: Napa Extra 500mg)" required>
-                <select id="medTimeInput" required>
+            <form id="medTrackForm" onsubmit="addMedicine(event)" style="position: relative;">
+                <div style="flex: 1; position: relative; min-width: 200px;">
+                    <input type="text" id="medNameInput" placeholder="ওষুধের নাম লিখুন (যেমন: Napa, Ace)..." autocomplete="off" oninput="filterMedicines()" required>
+                    <div id="medSuggestions" class="suggestions-box" style="display:none;"></div>
+                </div>
+                <select id="medTimeInput" required style="flex: 1; min-width: 150px;">
                     <option value="">খাওয়ার সময় নির্বাচন করুন</option>
                     <option value="সকাল (খাবার আগে)">সকাল (খাবার আগে)</option>
                     <option value="সকাল (খাবার পরে)">সকাল (খাবার পরে)</option>
@@ -48,36 +86,79 @@
                 <button type="submit" class="med-add-btn">ওষুধের তালিকায় যোগ করুন</button>
             </form>
 
-            <ul id="medTrackerList" class="med-list">
-                </ul>
+            <ul id="medTrackerList" class="med-list"></ul>
         </section>
 
+        <!-- রোগভিত্তিক লক্ষণ ও প্রতিকার গাইড -->
         <h2 class="section-title">🩺 রোগভিত্তিক লক্ষণ, উপসর্গ ও প্রতিকার গাইড</h2>
-        <p class="section-desc">নিচের বিভাগগুলোতে ক্লিক করে যেকোনো রোগের বিস্তারিত লক্ষণ ও প্রতিকার জানুন:</p>
-
         <div class="disease-grid">
-            <div class="disease-card" onclick="openDisease('autism')">👶 <h3>অটিজম ও শিশু সিন্ড্রোম</h3><p>অটিস্টিক শিশুদের লক্ষণ ও পরিচর্যা</p></div>
-            <div class="disease-card" onclick="openDisease('kidney')">🩺 <h3>কিডনি রোগ ও উপসর্গ</h3><p>কিডনি জটিলতা ও প্রাথমিক লক্ষণ</p></div>
-            <div class="disease-card" onclick="openDisease('hiv')">⚠️ <h3>এইচআইভি (HIV) তথ্য</h3><p>ঝুঁকি, লক্ষণ ও সচেতনতা</p></div>
+            <div class="disease-card" onclick="openDisease('autism')">👶 <h3>অটিজম ও শিশু সিন্ড্রোম</h3><p>অটিস্টিক শিশুদের লক্ষণ</p></div>
+            <div class="disease-card" onclick="openDisease('kidney')">🩺 <h3>কিডনি রোগ ও উপসর্গ</h3><p>কিডনি জটিলতা ও লক্ষণ</p></div>
+            <div class="disease-card" onclick="openDisease('hiv')">⚠️ <h3>এইচআইভি (HIV) তথ্য</h3><p>ঝুঁকি ও সচেতনতা</p></div>
             <div class="disease-card" onclick="openDisease('urine')">💧 <h3>প্রস্রাব ইনফেকশন (UTI)</h3><p>জ্বালাপোড়া ও প্রতিকার</p></div>
-            <div class="disease-card" onclick="openDisease('allergy')">🤧 ### ঠান্ডা, কাশি ও এলার্জি</h3><p>দাস্ট এলার্জি ও শ্বাসকষ্ট</p></div>
-            <div class="disease-card" onclick="openDisease('skin')">✨ <h3>চর্মরোগ (Dermatology)</h3><p>একজিমা, চুলকানি ও ত্বকের সমস্যা</p></div>
-            <div class="disease-card" onclick="openDisease('hair')">💇 <h3>চুল পড়া সমস্যা</h3><p>চুল পড়ার কারণ ও ঘরোয়া প্রতিকার</p></div>
-            <div class="disease-card" onclick="openDisease('sexual')">❤️ <h3>যৌন স্বাস্থ্য সমস্যা</h3><p>সচেতনতা ও বিশেষজ্ঞ পরামর্শ</p></div>
-            <div class="disease-card" onclick="openDisease('heart')">🫀 <h3>হার্ট ও কার্ডিওলজি</h3><p>বুকে ব্যথা ও প্রেশার ম্যানেজমেন্ট</p></div>
-            <div class="disease-card" onclick="openDisease('diabetes')">🩸 <h3>ডায়াবেটিস কর্নার</h3><p>ব্লাড সুগার কন্ট্রোল ও ডায়েট</p></div>
-            <div class="disease-card" onclick="openDisease('neuro')">🧠 <h3>নিউরো (মস্তিষ্ক ও স্নায়ু)</h3><p>মাথা ব্যথা, স্ট্রোক ও প্যারালাইসিস</p></div>
-            <div class="disease-card" onclick="openDisease('gyne')">👩‍⚕️ <h3>গাইনি ও প্রসূতি সেবা</h3><p>মাতৃস্বাস্থ্য ও নারী স্বাস্থ্যসেবা</p></div>
-            <div class="disease-card" onclick="openDisease('gastric')">🔥 <h3>গ্যাস্ট্রিক ও আলসার</h3><p>বদহজম, বুকজ্বালা ও প্রতিকার</p></div>
-            <div class="disease-card" onclick="openDisease('fever')">🤒 <h3>ডেঙ্গু ও সাধারণ জ্বর</h3><p>লক্ষণ, টেস্ট ও সতর্কতা</p></div>
-            <div class="disease-card" onclick="openDisease('eye')">👁️ <h3>চক্ষু (আই কেয়ার)</h3><p>চোখ ওঠা, দৃষ্টিশক্তি ও যত্ন</p></div>
+            <div class="disease-card" onclick="openDisease('allergy')">🤧 <h3>ঠান্ডা, কাশি ও এলার্জি</h3><p>শ্বাসকষ্ট সমাধান</p></div>
+            <div class="disease-card" onclick="openDisease('skin')">✨ <h3>চর্মরোগ (Dermatology)</h3><p>চুলকানি ও ত্বকের সমস্যা</p></div>
+            <div class="disease-card" onclick="openDisease('hair')">💇 <h3>চুল পড়া সমস্যা</h3><p>চুল পড়ার কারণ ও প্রতিকার</p></div>
+            <div class="disease-card" onclick="openDisease('sexual')">❤️ <h3>যৌন স্বাস্থ্য সমস্যা</h3><p>বিশেষজ্ঞ পরামর্শ</p></div>
+            <div class="disease-card" onclick="openDisease('heart')">🫀 <h3>হার্ট ও কার্ডিওলজি</h3><p>বুকে ব্যথা ও প্রেশার</p></div>
+            <div class="disease-card" onclick="openDisease('diabetes')">🩸 <h3>ডায়াবেটিস কর্নার</h3><p>ব্লাড সুগার কন্ট্রোল</p></div>
+            <div class="disease-card" onclick="openDisease('neuro')">🧠 <h3>নিউরো (মস্তিষ্ক ও স্নায়ু)</h3><p>মাথা ব্যথা ও স্ট্রোক</p></div>
+            <div class="disease-card" onclick="openDisease('gyne')">👩‍⚕️ <h3>গাইনি ও প্রসূতি সেবা</h3><p>মাতৃস্বাস্থ্য ও নারী স্বাস্থ্য</p></div>
+            <div class="disease-card" onclick="openDisease('gastric')">🔥 <h3>গ্যাস্ট্রিক ও আলসার</h3><p>বদহজম ও বুকজ্বালা</p></div>
+            <div class="disease-card" onclick="openDisease('fever')">🤒 <h3>ডেঙ্গু ও সাধারণ জ্বর</h3><p>লক্ষণ ও সতর্কতা</p></div>
+            <div class="disease-card" onclick="openDisease('eye')">👁️ <h3>চক্ষু (আই কেয়ার)</h3><p>দৃষ্টিশক্তি ও যত্ন</p></div>
         </div>
+
+        <!-- 🎥 হোম পেজে সরাসরি স্বাস্থ্য সচেতনতামূলক ভিডিও কর্নার -->
+        <section class="health-videos-section" style="margin-top: 40px; background: #e0fbfc; padding: 25px; border-radius: 10px; border-left: 6px solid #0077b6;">
+            <h2 style="text-align: center; color: #1d3557; margin-top: 0;">🎥 স্বাস্থ্য সুরক্ষা ও সচেতনতামূলক ভিডিও গাইডলাইন</h2>
+            <p style="text-align: center; color: #555; font-size: 14px; margin-bottom: 20px;">সুস্থ জীবনযাপন ও রোগ প্রতিরোধের ওপর গুরুত্বপূর্ণ শিক্ষণীয় ভিডিওসমূহ:</p>
+            
+            <div class="video-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                <!-- ভিডিও ১ -->
+                <div class="video-card" style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px;">
+                        <iframe src="https://www.youtube.com/embed/5qap5aO4i9A" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
+                    </div>
+                    <h4 style="margin: 10px 0 5px 0; color: #0077b6; font-size: 16px;">সুস্থ থাকার সহজ ১০টি উপায়</h4>
+                    <p style="margin: 0; font-size: 12px; color: #666;">প্রতিদিনের জীবনযাপনে স্বাস্থ্যকর অভ্যাস গড়ার গাইডলাইন।</p>
+                </div>
+
+                <!-- ভিডিও ২ -->
+                <div class="video-card" style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px;">
+                        <iframe src="https://www.youtube.com/embed/1v_mMkaqwzk" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
+                    </div>
+                    <h4 style="margin: 10px 0 5px 0; color: #0077b6; font-size: 16px;">ডায়াবেটিস ও উচ্চ রক্তচাপ নিয়ন্ত্রণ</h4>
+                    <p style="margin: 0; font-size: 12px; color: #666;">রক্তে শর্করার মাত্রা ও প্রেশার নিয়ন্ত্রণে রাখার কার্যকরী উপায়।</p>
+                </div>
+
+                <!-- ভিডিও ৩ -->
+                <div class="video-card" style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px;">
+                        <iframe src="https://www.youtube.com/embed/7X8c4K5r6og" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
+                    </div>
+                    <h4 style="margin: 10px 0 5px 0; color: #0077b6; font-size: 16px;">ডেঙ্গু জ্বর ও এর প্রতিকার</h4>
+                    <p style="margin: 0; font-size: 12px; color: #666;">ডেঙ্গু থেকে বাঁচার উপায় এবং প্রাথমিক সতর্কতা।</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- স্বাস্থ্য সচেতনতা ও উক্তি কর্নার -->
+        <section class="health-quotes-section" style="margin-top: 30px;">
+            <h2 style="text-align: center; color: #1d3557; margin-top: 0;">💡 স্বাস্থ্য সুরক্ষা ও সচেতনতা গাইডলাইন</h2>
+            <p style="text-align: center; color: #555; font-size: 14px; margin-bottom: 20px;">সুস্থ ও সুন্দর জীবনের জন্য প্রতিদিনের কিছু সুপরামর্শ এবং বর্জনীয় বিষয়সমূহ:</p>
+            <div class="quotes-container" id="healthQuotesGrid"></div>
+        </section>
     </div>
 
-    <footer class="main-footer">
-        <p>&copy; 2026 <strong>MK Healthcare</strong> - সকল স্বাস্থ্য অধিকার সংরক্ষিত।</p>
-    </footer>
+    <footer class="main-footer"><p>&copy; 2026 <strong>MK Healthcare</strong> - সকল অধিকার সংরক্ষিত।</p></footer>
 
+    <!-- সমস্ত ডেটা ও স্ক্রিপ্ট ফাইল -->
+    <script src="medicines-data.js"></script>
+    <script src="hospitals-data.js"></script>
+    <script src="nursing-homeopathic-data.js"></script>
+    <script src="health-quotes-data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

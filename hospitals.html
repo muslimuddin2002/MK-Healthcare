@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>হাসপাতাল ও মেডিকেল ডিরেক্টরি - MK Healthcare</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dash-body">
+    <header class="main-header">
+        <div class="logo-area">
+            <h1>🏥 MK Healthcare</h1>
+            <span>হাসপাতাল, মেডিকেল ও নার্সিং ডিরেক্টরি</span>
+        </div>
+        <div class="user-nav">
+            <button onclick="window.location.href='dashboard.html'" class="hosp-nav-btn" style="background:#2a9d8f;">⬅ ড্যাশবোর্ডে ফিরুন</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- সঠিক সিকোয়েন্সে সাজানো ট্যাব বাটনসমূহ -->
+        <div class="hospital-tabs">
+            <button class="h-tab-btn active" onclick="switchHospTab('govt')">🏛️ সরকারি মেডিকেল কলেজ</button>
+            <button class="h-tab-btn" onclick="switchHospTab('army')">🎖️ আর্মি মেডিকেল কলেজ</button>
+            <button class="h-tab-btn" onclick="switchHospTab('private')">🏢 বেসরকারি মেডিকেল কলেজ</button>
+            <button class="h-tab-btn" onclick="switchHospTab('dental')">🦷 ডেন্টাল কলেজ ও হসপিটাল</button>
+            <button class="h-tab-btn" onclick="switchHospTab('nursingGovt')">👩‍⚕️ সরকারি নার্সিং কলেজ</button>
+            <button class="h-tab-btn" onclick="switchHospTab('nursingPvt')">🏢 বেসরকারি নার্সিং কলেজ</button>
+            <button class="h-tab-btn" onclick="switchHospTab('alternative')">🌿 হোমিওপ্যাথিক ও ইউনানি</button>
+            <button class="h-tab-btn" onclick="switchHospTab('divisional')">⭐ বিভাগীয় ও বিশেষায়িত</button>
+            <button class="h-tab-btn" onclick="switchHospTab('sadar')">🏥 জেলা সদর হাসপাতাল</button>
+            <button class="h-tab-btn" onclick="switchHospTab('upazila')">🏡 উপজেলা স্বাস্থ্য কমপ্লেক্স</button>
+        </div>
+
+        <!-- সেকশনসমূহ -->
+        <div id="govtSection" class="hosp-section"><h2 class="section-title">🏛️ সরকারি মেডিকেল কলেজসমূহ</h2><div class="hospital-grid" id="govtGrid"></div></div>
+        <div id="armySection" class="hosp-section" style="display: none;"><h2 class="section-title">🎖️ আর্মি মেডিকেল কলেজসমূহ</h2><div class="hospital-grid" id="armyGrid"></div></div>
+        <div id="privateSection" class="hosp-section" style="display: none;"><h2 class="section-title">🏢 বেসরকারি মেডিকেল কলেজসমূহ</h2><div class="hospital-grid" id="privateGrid"></div></div>
+        <div id="dentalSection" class="hosp-section" style="display: none;"><h2 class="section-title">🦷 ডেন্টাল কলেজ ও হাসপাতালসমূহ</h2><div class="hospital-grid" id="dentalGrid"></div></div>
+        <div id="nursingGovtSection" class="hosp-section" style="display: none;"><h2 class="section-title">👩‍⚕️ সরকারি নার্সিং ও মিডওয়াইফারি কলেজসমূহ</h2><div class="hospital-grid" id="nursingGovtGrid"></div></div>
+        <div id="nursingPvtSection" class="hosp-section" style="display: none;"><h2 class="section-title">🏢 বেসরকারি নার্সিং কলেজসমূহ</h2><div class="hospital-grid" id="nursingPvtGrid"></div></div>
+        <div id="alternativeSection" class="hosp-section" style="display: none;"><h2 class="section-title">🌿 হোমিওপ্যাথিক, ইউনানি ও আয়ুর্বেদিক কলেজ</h2><div class="hospital-grid" id="alternativeGrid"></div></div>
+        <div id="divisionalSection" class="hosp-section" style="display: none;"><h2 class="section-title">⭐ বিভাগীয় ও বিশেষায়িত হাসপাতালসমূহ</h2><div class="hospital-grid" id="divisionalGrid"></div></div>
+        <div id="sadarSection" class="hosp-section" style="display: none;"><h2 class="section-title">🏥 ৬৪ জেলার জেলা সদর হাসপাতালসমূহ</h2><div class="hospital-grid" id="sadarGrid"></div></div>
+        <div id="upazilaSection" class="hosp-section" style="display: none;"><h2 class="section-title">🏡 উপজেলা স্বাস্থ্য কমপ্লেক্সসমূহ</h2><div class="hospital-grid" id="upazilaGrid"></div></div>
+    </div>
+
+    <!-- মোডাল -->
+    <div id="hospModal" class="modal" style="display:none;">
+        <div class="modal-content" style="width: 90%; max-width: 600px; max-height: 80vh; overflow-y: auto;">
+            <h2 id="modalHospTitle" style="color:#0077b6; margin-top:0;">নাম</h2>
+            <p id="modalHospDesc">বিবরণ...</p>
+            <h3>⚙️ সুবিধাসমূহ:</h3>
+            <ul id="modalHospMachines" style="line-height: 1.8;"></ul>
+            <button onclick="closeHospModal()" class="auth-btn" style="background:#d90429; margin-top:15px;">বন্ধ করুন</button>
+        </div>
+    </div>
+
+    <footer class="main-footer"><p>&copy; 2026 <strong>MK Healthcare</strong> - সকল অধিকার সংরক্ষিত।</p></footer>
+
+    <!-- সমস্ত ডেটা ও স্ক্রিপ্ট ফাইল -->
+    <script src="hospitals-data.js"></script>
+    <script src="nursing-homeopathic-data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

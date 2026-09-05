@@ -23,7 +23,10 @@
             </div>
             <div class="form-group">
                 <label>পাসওয়ার্ড</label>
-                <input type="password" id="loginPassword" placeholder="আপনার পাসওয়ার্ড দিন" required>
+                <div class="password-wrapper">
+                    <input type="password" id="loginPassword" placeholder="পাসওয়ার্ড দিন" required>
+                    <span class="toggle-password" onclick="togglePasswordVisibility('loginPassword', this)">👁️</span>
+                </div>
             </div>
             <button type="submit" class="auth-btn">লগইন করুন</button>
             <p class="forgot-link" onclick="showForgotModal()">পাসওয়ার্ড ভুলে গেছেন?</p>
@@ -39,16 +42,37 @@
                 <input type="text" id="regEmail" placeholder="যোগাযোগের নম্বর বা ইমেইল" required>
             </div>
             <div class="form-group">
-                <label>ঠিকানা (লোকেশন)</label>
-                <input type="text" id="regAddress" placeholder="আপনার বর্তমান ঠিকানা (যেমন: ঢাকা, বাংলাদেশ)" required>
+                <label>আপনার জেলা নির্বাচন করুন</label>
+                <select id="regDistrict" required>
+                    <option value="">জেলা সিলেক্ট করুন...</option>
+                    <option value="ঢাকা">ঢাকা</option>
+                    <option value="চট্টগ্রাম">চট্টগ্রাম</option>
+                    <option value="রাজশাহী">রাজশাহী</option>
+                    <option value="সিলেট">সিলেট</option>
+                    <option value="খুলনা">খুলনা</option>
+                    <option value="বরিশাল">বরিশাল</option>
+                    <option value="রংপুর">রংপুর</option>
+                    <option value="ময়মনসিংহ">ময়মনসিংহ</option>
+                    <option value="কুমিল্লা">কুমিল্লা</option>
+                    <option value="ফরিদপুর">ফরিদপুর</option>
+                    <option value="বগুড়া">বগুড়া</option>
+                    <option value="নোয়াখালী">নোয়াখালী</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>আপনার উপজেলা লিখুন</label>
+                <input type="text" id="regUpazila" placeholder="আপনার উপজেলার নাম" required>
             </div>
             <div class="form-group">
                 <label>বয়স (বছর)</label>
-                <input type="number" id="regAge" placeholder="আপনার বয়স লিখুন (যেমন: ২৫ বা ৭০)" required>
+                <input type="number" id="regAge" placeholder="আপনার বয়স লিখুন" required>
             </div>
             <div class="form-group">
                 <label>নতুন পাসওয়ার্ড</label>
-                <input type="password" id="regPassword" placeholder="একটি গোপন পাসওয়ার্ড দিন" required>
+                <div class="password-wrapper">
+                    <input type="password" id="regPassword" placeholder="শক্তিশালী পাসওয়ার্ড দিন" required>
+                    <span class="toggle-password" onclick="togglePasswordVisibility('regPassword', this)">👁️</span>
+                </div>
             </div>
             <button type="submit" class="auth-btn register-submit">একাউন্ট তৈরি করুন</button>
         </form>
@@ -56,7 +80,7 @@
 
     <div id="forgotModal" class="modal" style="display:none;">
         <div class="modal-content">
-            <h3>🔑 পাসওয়ার্ড উদ্ধার (Forgot Password)</h3>
+            <h3>🔑 পাসওয়ার্ড উদ্ধার</h3>
             <p>আপনার রেজিস্টার্ড ফোন নম্বর বা ইমেইল দিন:</p>
             <input type="text" id="forgotInput" placeholder="ফোন বা ইমেইল দিন">
             <button onclick="resetPassword()" class="auth-btn" style="margin-top:10px;">নতুন পাসওয়ার্ড সেট করুন</button>
