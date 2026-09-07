@@ -1,4 +1,4 @@
-// ১. পাসওয়ার্ড দেখার চোখ আইকন টগল ফাংশন
+// ১. পাসওয়ার্ড দেখার চোখ আইকন টগল
 function togglePasswordVisibility(fieldId, iconElement) {
     const inputField = document.getElementById(fieldId);
     if (inputField.type === "password") {
@@ -29,7 +29,38 @@ function switchTab(type) {
     }
 }
 
-// ৩. রেজিস্ট্রেশন লজিক
+// ৩. ৬৪ জেলার ড্রপডাউন পপুলেট করা (পেজ লোড হলে)
+document.addEventListener("DOMContentLoaded", function() {
+    const districtSelect = document.getElementById('regDistrict');
+    if(districtSelect && typeof bdDistrictsAndUpazilas !== 'undefined') {
+        for(let district in bdDistrictsAndUpazilas) {
+            let option = document.createElement('option');
+            option.value = district;
+            option.textContent = district;
+            districtSelect.appendChild(option);
+        }
+    }
+});
+
+// ৪. জেলা সিলেক্ট করলে তার অধীনস্থ উপজেলাগুলো লোড হওয়া (ডাইনামিক ডিপেন্ডেন্ট ড্রপডাউন)
+function loadUpazilas() {
+    const districtSelect = document.getElementById('regDistrict');
+    const upazilaSelect = document.getElementById('regUpazila');
+    const selectedDistrict = districtSelect.value;
+
+    upazilaSelect.innerHTML = '<option value="">উপজেলা নির্বাচন করুন...</option>';
+
+    if(selectedDistrict && bdDistrictsAndUpazilas[selectedDistrict]) {
+        bdDistrictsAndUpazilas[selectedDistrict].forEach(upazila => {
+            let option = document.createElement('option');
+            option.value = upazila;
+            option.textContent = upazila;
+            upazilaSelect.appendChild(option);
+        });
+    }
+}
+
+// ৫. রেজিস্ট্রেশন লজিক
 function handleRegister(e) {
     e.preventDefault();
     const name = document.getElementById('regName').value;
@@ -50,29 +81,49 @@ function handleRegister(e) {
     }
 
     const userData = { name, email, district, upazila, age, stage, password, imgUrl };
+    
+    let usersList = JSON.parse(localStorage.getItem('mkAllUsers')) || [];
+    let existingUser = usersList.find(u => u.email === email);
+    if(existingUser) {
+        alert('এই ইমেইল দিয়ে ইতিপূর্বে অ্যাকাউন্ট খোলা হয়েছে! দয়া করে লগইন করুন।');
+        switchTab('login');
+        return;
+    }
+
+    usersList.push(userData);
+    localStorage.setItem('mkAllUsers', JSON.stringify(usersList));
     localStorage.setItem('mkUser', JSON.stringify(userData));
 
     alert('রেজিস্ট্রেশন সফল হয়েছে! এখন লগইন করুন।');
     switchTab('login');
 }
 
-// ৪. লগইন লজিক
+// ৬. লগইন লজিক
 function handleLogin(e) {
     e.preventDefault();
     const emailInput = document.getElementById('loginEmail').value;
     const passInput = document.getElementById('loginPassword').value;
 
-    const user = JSON.parse(localStorage.getItem('mkUser'));
+    let usersList = JSON.parse(localStorage.getItem('mkAllUsers')) || [];
+    let foundUser = usersList.find(u => u.email === emailInput && u.password === passInput);
 
-    if(user && user.email === emailInput && user.password === passInput) {
+    if(!foundUser) {
+        let singleUser = JSON.parse(localStorage.getItem('mkUser'));
+        if(singleUser && singleUser.email === emailInput && singleUser.password === passInput) {
+            foundUser = singleUser;
+        }
+    }
+
+    if(foundUser) {
         localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('mkUser', JSON.stringify(foundUser));
         window.location.href = 'dashboard.html';
     } else {
-        alert('ভুল ফোন/ইমেইল অথবা পাসওয়ার্ড!');
+        alert('ভুল ইমেইল অথবা পাসওয়ার্ড! দয়া করে সঠিক তথ্য দিন।');
     }
 }
 
-// ৫. পাসওয়ার্ড রিকভারি মোডাল
+// ৭. পাসওয়ার্ড রিকভারি
 function showForgotModal() { 
     const modal = document.getElementById('forgotModal');
     if(modal) modal.style.display = 'flex'; 
@@ -83,12 +134,24 @@ function closeForgotModal() {
 }
 function resetPassword() {
     const val = document.getElementById('forgotInput').value;
-    const user = JSON.parse(localStorage.getItem('mkUser'));
-    if(user && user.email === val) {
+    let usersList = JSON.parse(localStorage.getItem('mkAllUsers')) || [];
+    let user = usersList.find(u => u.email === val);
+    
+    if(!user) {
+        let singleUser = JSON.parse(localStorage.getItem('mkUser'));
+        if(singleUser && singleUser.email === val) user = singleUser;
+    }
+
+    if(user) {
         const newPass = prompt("আপনার নতুন পাসওয়ার্ডটি দিন:");
         if(newPass) {
             user.password = newPass;
             localStorage.setItem('mkUser', JSON.stringify(user));
+            let index = usersList.findIndex(u => u.email === val);
+            if(index !== -1) {
+                usersList[index] = user;
+                localStorage.setItem('mkAllUsers', JSON.stringify(usersList));
+            }
             alert('পাসওয়ার্ড সফলভাবে পরিবর্তন করা হয়েছে!');
             closeForgotModal();
         }
@@ -97,7 +160,7 @@ function resetPassword() {
     }
 }
 
-// ৬. প্রোফাইল এডিট ও গ্যালারি থেকে ছবি লোড করার লজিক
+// ৮. প্রোফাইল এডিট
 function openEditProfileModal() {
     const user = JSON.parse(localStorage.getItem('mkUser'));
     if(user) {
@@ -152,7 +215,7 @@ function finalizeProfileSave(user) {
     location.reload();
 }
 
-// ৭. পেজ লোড লজিক
+// ৯. পেজ লোড লজিক
 window.onload = function() {
     if(window.location.pathname.includes('dashboard.html')) {
         if(!localStorage.getItem('isLoggedIn')) {
@@ -175,7 +238,6 @@ window.onload = function() {
         }
     }
 
-    // হাসপাতাল ও নার্সিং পেজ রেন্ডার
     if(window.location.pathname.includes('hospitals.html')) {
         renderGrid('govtGrid', typeof govtColleges !== 'undefined' ? govtColleges : []);
         renderGrid('armyGrid', typeof armyColleges !== 'undefined' ? armyColleges : []);
@@ -189,7 +251,6 @@ window.onload = function() {
         renderGrid('upazilaGrid', typeof upazilaHospitals !== 'undefined' ? upazilaHospitals : []);
     }
 
-    // রোগের বিবরণ পেজ লোড
     if(window.location.pathname.includes('disease-details.html')) {
         const type = localStorage.getItem('selectedDisease');
         const data = diseaseData[type];
@@ -208,7 +269,6 @@ window.onload = function() {
         }
     }
 
-    // স্বাস্থ্য টিপস রেন্ডার করা
     renderHealthQuotes();
 };
 
@@ -230,7 +290,7 @@ function logout() {
     window.location.href = 'index.html';
 }
 
-// ৮. ক্লায়েন্ট-বান্ধব ওষুধ সার্চ ও অটো-কমপ্লিট ফিল্টার ফাংশন
+// ১০. অটো-কমপ্লিট সার্চ
 function filterMedicines() {
     const input = document.getElementById('medNameInput');
     const query = input.value.trim().toLowerCase();
@@ -252,7 +312,7 @@ function filterMedicines() {
         box.innerHTML = matches.map(m => `<div class="suggestion-item" onclick="selectMedicine('${m}')">${m}</div>`).join('');
         box.style.display = 'block';
     } else {
-        box.innerHTML = '<div class="suggestion-item" style="color:red;">কোনো ওষুধ পাওয়া যায়নি (নিজের মতো লিখতে পারেন)</div>';
+        box.innerHTML = '<div class="suggestion-item" style="color:red;">কোনো ওষুধ পাওয়া যায়নি</div>';
         box.style.display = 'block';
     }
 }
@@ -262,7 +322,7 @@ function selectMedicine(medName) {
     document.getElementById('medSuggestions').style.display = 'none';
 }
 
-// ৯. হাসপাতালের সঠিক সিকোয়েন্সে ট্যাব সুইচিং
+// ১১. হাসপাতাল ট্যাব সুইচিং
 function switchHospTab(tabName) {
     const sections = ['govtSection', 'armySection', 'privateSection', 'dentalSection', 'nursingGovtSection', 'nursingPvtSection', 'alternativeSection', 'divisionalSection', 'sadarSection', 'upazilaSection'];
     sections.forEach(sec => {
@@ -274,16 +334,9 @@ function switchHospTab(tabName) {
     btns.forEach(b => b.classList.remove('active'));
 
     const map = { 
-        'govt': 0, 
-        'army': 1, 
-        'private': 2, 
-        'dental': 3, 
-        'nursingGovt': 4, 
-        'nursingPvt': 5, 
-        'alternative': 6, 
-        'divisional': 7, 
-        'sadar': 8, 
-        'upazila': 9 
+        'govt': 0, 'army': 1, 'private': 2, 'dental': 3, 
+        'nursingGovt': 4, 'nursingPvt': 5, 'alternative': 6, 
+        'divisional': 7, 'sadar': 8, 'upazila': 9 
     };
     
     const targetSec = document.getElementById(tabName + 'Section');
@@ -294,7 +347,7 @@ function switchHospTab(tabName) {
     }
 }
 
-// ১০. হসপিটাল ডিটেইলস মোডাল
+// ১২. মোডাল
 function showHospModal(h) {
     document.getElementById('modalHospTitle').textContent = h.name;
     document.getElementById('modalHospDesc').textContent = `অবস্থান: ${h.location} | বিবরণ: ${h.details}`;
@@ -309,16 +362,26 @@ function closeHospModal() {
     document.getElementById('hospModal').style.display = 'none';
 }
 
-// ১১. ওষুধ ট্র্যাকিং লজিক
+// ১৩. স্মার্ট ওষুধ ও ডায়েট ট্র্যাকিং লজিক
 function addMedicine(e) {
     e.preventDefault();
     const name = document.getElementById('medNameInput').value;
     const time = document.getElementById('medTimeInput').value;
+    const safeFood = document.getElementById('safeFoodInput').value || "সাধারণ সুষম খাবার";
+    const avoidFood = document.getElementById('avoidFoodInput').value || "তেলযুক্ত ও ভাজাপোড়া";
+
     if(!name || !time) return;
 
     const list = document.getElementById('medTrackerList');
     const li = document.createElement('li');
-    li.innerHTML = `<span><strong>${name}</strong> - [${time}]</span> <button class="done-btn" onclick="toggleDone(this)">খাওয়া হয়েছে (Done)</button>`;
+    li.innerHTML = `
+        <div style="flex: 1;">
+            <strong>💊 ${name}</strong> [সময়: ${time}]<br>
+            <span style="color: #2a9d8f; font-size: 13px;">✅ যা খাবে: ${safeFood}</span><br>
+            <span style="color: #d90429; font-size: 13px;">❌ যা খাবে না: ${avoidFood}</span>
+        </div> 
+        <button class="done-btn" onclick="toggleDone(this)">সেবন সম্পন্ন ✅</button>
+    `;
     list.appendChild(li);
 
     document.getElementById('medTrackForm').reset();
@@ -333,12 +396,12 @@ function toggleDone(btn) {
         btn.textContent = 'সম্পন্ন ✅';
         btn.style.backgroundColor = '#2a9d8f';
     } else {
-        btn.textContent = 'খাওয়া হয়েছে (Done)';
+        btn.textContent = 'সেবন সম্পন্ন ✅';
         btn.style.backgroundColor = '#0077b6';
     }
 }
 
-// ১২. ফুটারের উপরে স্বাস্থ্য টিপস রেন্ডার করার ফাংশন
+// ১৪. স্বাস্থ্য টিপস রেন্ডার
 function renderHealthQuotes() {
     const grid = document.getElementById('healthQuotesGrid');
     if(grid && typeof healthQuotes !== 'undefined') {
@@ -351,13 +414,23 @@ function renderHealthQuotes() {
     }
 }
 
-// ১৩. রোগ ও সিন্ড্রোম ডেটাবেজ
+// ১৫. রোগ ডেটাবেজ
 const diseaseData = {
     "disability": {
-        title: "♿ প্রতিবন্ধী ব্যক্তিদের বিশেষ সেবা কর্নার",
-        desc: "শারীরিক, মানসিক, দৃষ্টি ও বাকপ্রতিবন্ধী ব্যক্তিদের বিশেষ চিকিৎসা ও থেরাপি গাইডলাইন।",
-        symptoms: ["শারীরিক মুভমেন্টে বাধা বা পক্ষাঘাত", "বুদ্ধিবৃত্তিক বিকাশ ধীর হওয়া", "কথা বলা বা শোনার ক্ষেত্রে জটিলতা"],
-        remedy: ["নিয়মিত ফিজিওথেরাপি ও স্পিচ থেরাপি", "সহায়ক উপকরণ (হুইলচেয়ার, ক্রাচ) ব্যবহার", "বিশেষজ্ঞ চিকিৎসকের পরামর্শ"]
+        title: "♿ প্রতিবন্ধী ও বিশেষ চাহিদা সম্পন্ন ব্যক্তি সেবা কর্নার",
+        desc: "শারীরিক, মানসিক, দৃষ্টি, শ্রবণ ও বাকপ্রতিবন্ধী ব্যক্তিদের বিশেষ সিন্ড্রোম, চিকিৎসা ও থেরাপি গাইডলাইন।",
+        symptoms: [
+            "শারীরিক মুভমেন্টে বাধা, সেলিব্রাল পলসি বা পক্ষাঘাত",
+            "বুদ্ধিবৃত্তিক বিকাশ ধীর হওয়া বা ডাউন সিন্ড্রোম লক্ষণ",
+            "কথা বলা বা শোনার ক্ষেত্রে জন্মগত বা অর্জিত জটিলতা",
+            "দৃষ্টিশক্তি হীনতা বা আংশিক অন্ধত্ব সিন্ড্রোম"
+        ],
+        remedy: [
+            "নিয়মিত ফিজিওথেরাপি ও অকুপেশনাল থেরাপি করানো",
+            "স্পিচ ও ল্যাঙ্গুয়েজ থেরাপির মাধ্যমে কথা বলার চর্চা",
+            "সহায়ক উপকরণ (হুইলচেয়ার, হিয়ারিং এইড, হোয়াইট কেইন) ব্যবহার",
+            "বিশেষায়িত স্কুল বা কেয়ার সেন্টারে আচরণগত প্রশিক্ষণ"
+        ]
     },
     "autism": {
         title: "👶 অটিজম ও শিশু সিন্ড্রোম",

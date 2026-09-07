@@ -9,85 +9,85 @@
 <body class="auth-body">
     <div class="auth-container">
         <div class="brand-title">🏥 MK Healthcare</div>
-        <p class="brand-subtitle">আপনার বিশ্বস্ত ডিজিটাল হেলথ প্ল্যাটফর্ম</p>
-        
+        <div class="brand-subtitle">আপনার বিশ্বস্ত ডিজিটাল স্বাস্থ্য সেবা প্ল্যাটফর্ম</div>
+
         <div class="tab-buttons">
             <button class="tab-btn active" onclick="switchTab('login')">লগইন</button>
             <button class="tab-btn" onclick="switchTab('register')">রেজিস্ট্রেশন</button>
         </div>
 
-        <form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
+        <!-- লগইন ফর্ম -->
+        <form id="loginForm" onsubmit="handleLogin(event)">
             <div class="form-group">
-                <label>ফোন নম্বর বা ইমেইল</label>
-                <input type="text" id="loginEmail" placeholder="আপনার ফোন বা ইমেইল দিন" required>
+                <label>ইমেইল বা ফোন নম্বর</label>
+                <input type="text" id="loginEmail" placeholder="আপনার ইমেইল বা ফোন দিন..." required>
             </div>
             <div class="form-group">
                 <label>পাসওয়ার্ড</label>
                 <div class="password-wrapper">
-                    <input type="password" id="loginPassword" placeholder="পাসওয়ার্ড দিন" required>
+                    <input type="password" id="loginPassword" placeholder="পাসওয়ার্ড দিন..." required>
                     <span class="toggle-password" onclick="togglePasswordVisibility('loginPassword', this)">👁️</span>
                 </div>
             </div>
-            <button type="submit" class="auth-btn">লগইন করুন</button>
-            <p class="forgot-link" onclick="showForgotModal()">পাসওয়ার্ড ভুলে গেছেন?</p>
+            <div class="forgot-link" onclick="showForgotModal()">পাসওয়ার্ড ভুলে গেছেন?</div>
+            <button type="auth-btn" class="auth-btn" style="width:100%;">লগইন করুন</button>
         </form>
 
-        <form id="registerForm" class="auth-form" style="display: none;" onsubmit="handleRegister(event)">
+        <!-- রেজিস্ট্রেশন ফর্ম (৬৪ জেলা ও ডাইনামিক উপজেলা ড্রপডাউন সহ) -->
+        <form id="registerForm" onsubmit="handleRegister(event)" style="display: none;">
             <div class="form-group">
                 <label>পূর্ণ নাম</label>
-                <input type="text" id="regName" placeholder="আপনার সম্পূর্ণ নাম" required>
+                <input type="text" id="regName" placeholder="আপনার নাম লিখুন..." required>
             </div>
             <div class="form-group">
-                <label>ফোন নম্বর বা ইমেইল</label>
-                <input type="text" id="regEmail" placeholder="যোগাযোগের নম্বর বা ইমেইল" required>
+                <label>ইমেইল বা ফোন নম্বর</label>
+                <input type="text" id="regEmail" placeholder="ইমেইল বা ফোন দিন..." required>
             </div>
+            
+            <!-- ৬৪ জেলার সিলেক্ট ড্রপডাউন -->
             <div class="form-group">
-                <label>আপনার জেলা নির্বাচন করুন</label>
-                <select id="regDistrict" required>
-                    <option value="">জেলা সিলেক্ট করুন...</option>
-                    <option value="ঢাকা">ঢাকা</option>
-                    <option value="চট্টগ্রাম">চট্টগ্রাম</option>
-                    <option value="রাজশাহী">রাজশাহী</option>
-                    <option value="সিলেট">সিলেট</option>
-                    <option value="খুলনা">খুলনা</option>
-                    <option value="বরিশাল">বরিশাল</option>
-                    <option value="রংপুর">রংপুর</option>
-                    <option value="ময়মনসিংহ">ময়মনসিংহ</option>
-                    <option value="কুমিল্লা">কুমিল্লা</option>
-                    <option value="ফরিদপুর">ফরিদপুর</option>
-                    <option value="বগুড়া">বগুড়া</option>
-                    <option value="নোয়াখালী">নোয়াখালী</option>
+                <label>জেলা নির্বাচন করুন (৬৪ জেলা)</label>
+                <select id="regDistrict" onchange="loadUpazilas()" required>
+                    <option value="">জেলা নির্বাচন করুন...</option>
                 </select>
             </div>
+
+            <!-- ডাইনামিক উপজেলা সিলেক্ট ড্রপডাউন -->
             <div class="form-group">
-                <label>আপনার উপজেলা লিখুন</label>
-                <input type="text" id="regUpazila" placeholder="আপনার উপজেলার নাম" required>
+                <label>উপজেলা / থানা নির্বাচন করুন</label>
+                <select id="regUpazila" required>
+                    <option value="">প্রথমে জেলা নির্বাচন করুন...</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>বয়স</label>
+                <input type="number" id="regAge" placeholder="আপনার বয়স লিখুন..." min="0" max="120" required>
             </div>
             <div class="form-group">
-                <label>বয়স (বছর)</label>
-                <input type="number" id="regAge" placeholder="আপনার বয়স লিখুন" required>
-            </div>
-            <div class="form-group">
-                <label>নতুন পাসওয়ার্ড</label>
+                <label>পাসওয়ার্ড</label>
                 <div class="password-wrapper">
-                    <input type="password" id="regPassword" placeholder="শক্তিশালী পাসওয়ার্ড দিন" required>
+                    <input type="password" id="regPassword" placeholder="শক্তিশালী পাসওয়ার্ড দিন..." required>
                     <span class="toggle-password" onclick="togglePasswordVisibility('regPassword', this)">👁️</span>
                 </div>
             </div>
-            <button type="submit" class="auth-btn register-submit">একাউন্ট তৈরি করুন</button>
+            <button type="submit" class="auth-btn register-submit">রেজিস্ট্রেশন সম্পন্ন করুন</button>
         </form>
     </div>
 
+    <!-- পাসওয়ার্ড রিকভারি মোডাল -->
     <div id="forgotModal" class="modal" style="display:none;">
         <div class="modal-content">
-            <h3>🔑 পাসওয়ার্ড উদ্ধার</h3>
-            <p>আপনার রেজিস্টার্ড ফোন নম্বর বা ইমেইল দিন:</p>
-            <input type="text" id="forgotInput" placeholder="ফোন বা ইমেইল দিন">
-            <button onclick="resetPassword()" class="auth-btn" style="margin-top:10px;">নতুন পাসওয়ার্ড সেট করুন</button>
-            <button onclick="closeForgotModal()" class="back-btn" style="margin-top:5px; width:100%;">বাতিল</button>
+            <h3 style="color:#0077b6; margin-top:0;">🔐 পাসওয়ার্ড পুনরুদ্ধার</h3>
+            <p style="font-size:13px; color:#666;">আপনার রেজিস্টার্ড ইমেইল বা ফোন নম্বরটি লিখুন:</p>
+            <input type="text" id="forgotInput" placeholder="ইমেইল বা ফোন...">
+            <button onclick="resetPassword()" class="auth-btn" style="margin-top:12px;">রিসেট করুন</button>
+            <button onclick="closeForgotModal()" class="auth-btn" style="background:#d90429; margin-top:8px;">বাতিল</button>
         </div>
     </div>
 
+    <!-- ডেটা ফাইল ও স্ক্রিপ্ট -->
+    <script src="bangladesh-geo-data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

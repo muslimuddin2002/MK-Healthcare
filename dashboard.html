@@ -58,40 +58,44 @@
             </div>
         </div>
 
-        <!-- প্রতিবন্ধী সেবা কর্নার -->
-        <section class="special-section disabled-corner">
-            <h2>♿ প্রতিবন্ধী ব্যক্তিদের বিশেষ সেবা কর্নার</h2>
-            <p>শারীরিক ও মানসিক প্রতিবন্ধী ব্যক্তিদের জন্য থেরাপি, লাইফস্টাইল এবং বিশেষ চিকিৎসা গাইডলাইন।</p>
-            <button onclick="openDisease('disability')" class="spec-btn">বিস্তারিত দেখুন</button>
-        </section>
-
-        <!-- ওষুধের ডোজ ও ট্র্যাকার -->
+        <!-- স্মার্ট ওষুধের ডোজ ও ডায়েট ট্র্যাকার -->
         <section class="medicine-tracker-box">
-            <h2>💊 প্রতিদিনের ওষুধের ডোজ ও ট্র্যাকিং সিস্টেম</h2>
-            <p>ওষুধের নাম লিখলেই নিচে সাজেশন আসবে, শুধু ক্লিক করুন!</p>
+            <h2>💊 স্মার্ট ওষুধের ডোজ ও খাদ্য (Diet) ট্র্যাকিং সিস্টেম</h2>
+            <p>ওষুধের নাম লিখলে সাজেশন আসবে। সাথে রোগীর জন্য সুনির্দিষ্ট **কী খাবে** এবং **কী খাবে না** তা যুক্ত করতে পারবেন।</p>
             
-            <form id="medTrackForm" onsubmit="addMedicine(event)" style="position: relative;">
-                <div style="flex: 1; position: relative; min-width: 200px;">
-                    <input type="text" id="medNameInput" placeholder="ওষুধের নাম লিখুন (যেমন: Napa, Ace)..." autocomplete="off" oninput="filterMedicines()" required>
-                    <div id="medSuggestions" class="suggestions-box" style="display:none;"></div>
+            <form id="medTrackForm" onsubmit="addMedicine(event)" style="position: relative; display: flex; flex-direction: column; gap: 12px; margin-top: 15px;">
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <div style="flex: 1; position: relative; min-width: 220px;">
+                        <input type="text" id="medNameInput" placeholder="ওষুধের নাম লিখুন (যেমন: Napa, Ace)..." autocomplete="off" oninput="filterMedicines()" required>
+                        <div id="medSuggestions" class="suggestions-box" style="display:none;"></div>
+                    </div>
+                    <select id="medTimeInput" required style="flex: 1; min-width: 180px;">
+                        <option value="">খাওয়ার সময় নির্বাচন করুন</option>
+                        <option value="সকাল (খাবার আগে)">সকাল (খাবার আগে)</option>
+                        <option value="সকাল (খাবার পরে)">সকাল (খাবার পরে)</option>
+                        <option value="দুপুর (খাবার পরে)">দুপুর (খাবার পরে)</option>
+                        <option value="রাত (খাবার আগে)">রাত (খাবার আগে)</option>
+                        <option value="রাত (খাবার পরে)">রাত (খাবার পরে)</option>
+                    </select>
                 </div>
-                <select id="medTimeInput" required style="flex: 1; min-width: 150px;">
-                    <option value="">খাওয়ার সময় নির্বাচন করুন</option>
-                    <option value="সকাল (খাবার আগে)">সকাল (খাবার আগে)</option>
-                    <option value="সকাল (খাবার পরে)">সকাল (খাবার পরে)</option>
-                    <option value="দুপুর (খাবার পরে)">দুপুর (খাবার পরে)</option>
-                    <option value="রাত (খাবার আগে)">রাত (খাবার আগে)</option>
-                    <option value="রাত (খাবার পরে)">রাত (খাবার পরে)</option>
-                </select>
-                <button type="submit" class="med-add-btn">ওষুধের তালিকায় যোগ করুন</button>
+                
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <input type="text" id="safeFoodInput" placeholder="✅ কী খাবে (যেমন: ডাবের পানি, সুপ, নরম খাবার)" style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                    <input type="text" id="avoidFoodInput" placeholder="❌ কী খাবে না (যেমন: অতিরিক্ত তেল, মিষ্টি, ফাস্টফুড)" style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                </div>
+
+                <button type="submit" class="med-add-btn" style="align-self: flex-start; padding: 10px 20px;">ওষুধ ও ডায়েট তালিকায় যোগ করুন</button>
             </form>
 
             <ul id="medTrackerList" class="med-list"></ul>
         </section>
 
-        <!-- রোগভিত্তিক লক্ষণ ও প্রতিকার গাইড -->
+        <!-- রোগভিত্তিক লক্ষণ ও প্রতিকার গাইড (যেখানে প্রতিবন্ধী কর্নারটি অন্যান্য রোগের সাথে যুক্ত করা হয়েছে) -->
         <h2 class="section-title">🩺 রোগভিত্তিক লক্ষণ, উপসর্গ ও প্রতিকার গাইড</h2>
+        <p class="section-desc">বিশেষ চাহিদা সম্পন্ন শিশু ও প্রতিবন্ধী ব্যক্তিসহ বিভিন্ন রোগের বিস্তারিত লক্ষণ ও প্রতিকার জানতে কার্ডে ক্লিক করুন:</p>
+        
         <div class="disease-grid">
+            <div class="disease-card" onclick="openDisease('disability')">♿ <h3>প্রতিবন্ধী ও বিশেষ সেবা</h3><p>শারীরিক ও মানসিক থেরাপি গাইড</p></div>
             <div class="disease-card" onclick="openDisease('autism')">👶 <h3>অটিজম ও শিশু সিন্ড্রোম</h3><p>অটিস্টিক শিশুদের লক্ষণ</p></div>
             <div class="disease-card" onclick="openDisease('kidney')">🩺 <h3>কিডনি রোগ ও উপসর্গ</h3><p>কিডনি জটিলতা ও লক্ষণ</p></div>
             <div class="disease-card" onclick="openDisease('hiv')">⚠️ <h3>এইচআইভি (HIV) তথ্য</h3><p>ঝুঁকি ও সচেতনতা</p></div>
@@ -109,37 +113,29 @@
             <div class="disease-card" onclick="openDisease('eye')">👁️ <h3>চক্ষু (আই কেয়ার)</h3><p>দৃষ্টিশক্তি ও যত্ন</p></div>
         </div>
 
-        <!-- 🎥 হোম পেজে সরাসরি স্বাস্থ্য সচেতনতামূলক ভিডিও কর্নার -->
+        <!-- স্বাস্থ্য সচেতনতামূলক ভিডিও কর্নার -->
         <section class="health-videos-section" style="margin-top: 40px; background: #e0fbfc; padding: 25px; border-radius: 10px; border-left: 6px solid #0077b6;">
             <h2 style="text-align: center; color: #1d3557; margin-top: 0;">🎥 স্বাস্থ্য সুরক্ষা ও সচেতনতামূলক ভিডিও গাইডলাইন</h2>
             <p style="text-align: center; color: #555; font-size: 14px; margin-bottom: 20px;">সুস্থ জীবনযাপন ও রোগ প্রতিরোধের ওপর গুরুত্বপূর্ণ শিক্ষণীয় ভিডিওসমূহ:</p>
             
             <div class="video-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-                <!-- ভিডিও ১ -->
                 <div class="video-card" style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                     <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px;">
                         <iframe src="https://www.youtube.com/embed/5qap5aO4i9A" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
                     </div>
                     <h4 style="margin: 10px 0 5px 0; color: #0077b6; font-size: 16px;">সুস্থ থাকার সহজ ১০টি উপায়</h4>
-                    <p style="margin: 0; font-size: 12px; color: #666;">প্রতিদিনের জীবনযাপনে স্বাস্থ্যকর অভ্যাস গড়ার গাইডলাইন।</p>
                 </div>
-
-                <!-- ভিডিও ২ -->
                 <div class="video-card" style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                     <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px;">
                         <iframe src="https://www.youtube.com/embed/1v_mMkaqwzk" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
                     </div>
                     <h4 style="margin: 10px 0 5px 0; color: #0077b6; font-size: 16px;">ডায়াবেটিস ও উচ্চ রক্তচাপ নিয়ন্ত্রণ</h4>
-                    <p style="margin: 0; font-size: 12px; color: #666;">রক্তে শর্করার মাত্রা ও প্রেশার নিয়ন্ত্রণে রাখার কার্যকরী উপায়।</p>
                 </div>
-
-                <!-- ভিডিও ৩ -->
                 <div class="video-card" style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                     <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px;">
                         <iframe src="https://www.youtube.com/embed/7X8c4K5r6og" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
                     </div>
                     <h4 style="margin: 10px 0 5px 0; color: #0077b6; font-size: 16px;">ডেঙ্গু জ্বর ও এর প্রতিকার</h4>
-                    <p style="margin: 0; font-size: 12px; color: #666;">ডেঙ্গু থেকে বাঁচার উপায় এবং প্রাথমিক সতর্কতা।</p>
                 </div>
             </div>
         </section>
@@ -147,7 +143,6 @@
         <!-- স্বাস্থ্য সচেতনতা ও উক্তি কর্নার -->
         <section class="health-quotes-section" style="margin-top: 30px;">
             <h2 style="text-align: center; color: #1d3557; margin-top: 0;">💡 স্বাস্থ্য সুরক্ষা ও সচেতনতা গাইডলাইন</h2>
-            <p style="text-align: center; color: #555; font-size: 14px; margin-bottom: 20px;">সুস্থ ও সুন্দর জীবনের জন্য প্রতিদিনের কিছু সুপরামর্শ এবং বর্জনীয় বিষয়সমূহ:</p>
             <div class="quotes-container" id="healthQuotesGrid"></div>
         </section>
     </div>

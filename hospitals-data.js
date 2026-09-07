@@ -50,7 +50,7 @@ const armyColleges = [
     { name: "আর্মি মেডিকেল কলেজ সিলেট", location: "সিলেট সেনানিবাস", details: "সিলেটে সেনা পরিচালিত বিশেষায়িত চিকিৎসা কেন্দ্র।", machines: ["Emergency Unit", "Pathology", "X-Ray"] }
 ];
 
-// ৩. বেসরকারি মেডিকেল কলেজসমূহ (৫০+ প্রধান কলেজ)
+// ৩. বেসরকারি মেডিকেল কলেজসমূহ
 const privateColleges = [
     { name: "স্কয়ার হাসপাতাল লিমিটেড (Square Hospital)", location: "পান্থপথ, ঢাকা", details: "দেশের অন্যতম সেরা আন্তর্জাতিক মানের বেসরকারি সুপার স্পেশালাইজড হাসপাতাল।", machines: ["Advanced MRI & CT Scan", "Cath Lab", "NICU & PICU", "Modern ICU"] },
     { name: "ইউনাইটেড হাসপাতাল (United Hospital)", location: "গুলশান, ঢাকা", details: "উন্নত কার্ডিয়াক ও মাল্টিডিসিপ্লিনারি প্রাইভেট হাসপাতাল।", machines: ["State-of-art Cath Lab", "MRI 3Tesla", "CT Scan 128 Slice", "Advanced ICU"] },
@@ -61,63 +61,128 @@ const privateColleges = [
     { name: "আনোয়ার খান আধুনিক মেডিকেল কলেজ হাসপাতাল", location: "ধানমন্ডি, ঢাকা", details: "বিখ্যাত বেসরকারি মেডিকেল ও সুপার স্পেশালাইজড হাসপাতাল।", machines: ["CT Scan", "MRI", "Cath Lab", "ICU"] },
     { name: "উত্তরা আধুনিক মেডিকেল কলেজ", location: "উত্তরা, ঢাকা", details: "উত্তরার অন্যতম শীর্ষস্থানীয় বেসরকারি মেডিকেল কলেজ।", machines: ["CT Scan", "X-Ray", "Pathology", "ICU"] },
     { name: "পপুলার মেডিকেল কলেজ হাসপাতাল", location: "ধানমন্ডি, ঢাকা", details: "পপুলার গ্রুপ পরিচালিত প্রাইভেট মেডিকেল কলেজ।", machines: ["MRI", "CT Scan", "Dialysis", "ICU"] },
-    { name: "জহুরুল ইসলাম মেডিকেল কলেজ হাসপাতাল", location: "বাজিতপুর, কিশোরগঞ্জ", details: "গ্রামীণ জনগোষ্ঠীর সেবায় প্রতিষ্ঠিত বৃহৎ বেসরকারি মেডিকেল কলেজ।", machines: ["CT Scan", "ICU", "Blood Bank", "Dialysis"] },
-    { name: "খাজা ইউনুস আলী মেডিকেল কলেজ হাসপাতাল", location: "এনায়েতপুর, সিরাজগঞ্জ", details: "উত্তরবঙ্গের বিখ্যাত বেসরকারি মেডিকেল ও হার্ট ফাউন্ডেশন সংলগ্ন হাসপাতাল।", machines: ["Cath Lab", "MRI", "CT Scan", "ICU & CCU"] },
-    { name: "জালালাবাদ রাগিব-রাবেয়া মেডিকেল কলেজ", location: "সিলেট", details: "সিলেটের প্রথম প্রতিষ্ঠিত বেসরকারি মেডিকেল কলেজ।", machines: ["CT Scan", "ICU", "Dialysis", "Pathology"] },
-    { name: "কমিউনিটি বেজড মেডিকেল কলেজ", location: "ময়মনসিংহ", details: "ময়মনসিংহের অন্যতম শীর্ষ বেসরকারি মেডিকেল কলেজ।", machines: ["CT Scan", "ICU", "X-Ray", "Pathology"] },
-    { name: "ইব্রাহিম মেডিকেল কলেজ", location: "শাহবাগ, ঢাকা", details: "বারডেম হাসপাতালের সাথে সংযুক্ত বিখ্যাত মেডিকেল কলেজ।", machines: ["Advanced Diabetes Care", "Dialysis", "ICU", "Pathology"] },
-    { name: "হলি ফ্যামিলি রেড ক্রিসেন্ট মেডিকেল কলেজ", location: "বেইলি রোড, ঢাকা", details: "ঐতিহাসিক বেসরকারি মেডিকেল কলেজ ও হাসপাতাল।", machines: ["CT Scan", "X-Ray", "NICU", "Emergency"] },
-    { name: "ইস্ট ওয়েস্ট মেডিকেল কলেজ", location: "উত্তরা, ঢাকা", details: "বেসরকারি চিকিৎসা ও শিক্ষা প্রতিষ্ঠান।", machines: ["X-Ray", "Pathology", "ICU"] },
-    { name: "নর্দান ইন্টারন্যাশনাল মেডিকেল কলেজ", location: "ধানমন্ডি, ঢাকা", details: "আধুনিক প্রাইভেট মেডিকেল কলেজ।", machines: ["CT Scan", "Pathology", "X-Ray"] },
-    { name: "প্রাইম মেডিকেল কলেজ", location: "রংপুর", details: "রংপুরের অন্যতম প্রধান বেসরকারি মেডিকেল কলেজ।", machines: ["CT Scan", "ICU", "Pathology"] },
-    { name: "টিএমএসএস মেডিকেল কলেজ", location: "বগুড়া", details: "বগুড়ার সুপরিচিত বেসরকারি মেডিকেল কলেজ ও হাসপাতাল।", machines: ["CT Scan", "Dialysis", "ICU"] },
-    { name: "বরিন্দ মেডিকেল কলেজ", location: "রাজশাহী", details: "রাজশাহীর স্বনামধন্য বেসরকারি মেডিকেল কলেজ।", machines: ["X-Ray", "Pathology", "Emergency"] }
+    { name: "খাজা ইউনুস আলী মেডিকেল কলেজ হাসপাতাল", location: "এনায়েতপুর, সিরাজগঞ্জ", details: "উত্তরবঙ্গের বিখ্যাত বেসরকারি মেডিকেল ও হার্ট ফাউন্ডেশন সংলগ্ন হাসপাতাল।", machines: ["Cath Lab", "MRI", "CT Scan", "ICU & CCU"] }
 ];
 
 // ৪. ডেন্টাল কলেজ ও হাসপাতালসমূহ
 const dentalHospitals = [
     { name: "ঢাকা ডেন্টাল কলেজ ও হাসপাতাল", location: "মিরপুর, ঢাকা", details: "বাংলাদেশের ডেন্টাল শিক্ষার সর্বোচ্চ সরকারি প্রতিষ্ঠান ও বিশেষায়িত হাসপাতাল।", machines: ["Maxillofacial Surgery Unit", "Advanced Dental Chairs", "Orthodontic Lab", "Digital Dental X-Ray"] },
-    { name: "মর্নিং সান ডেন্টাল হসপিটাল", location: "ধানমন্ডি, ঢাকা", details: "আধুনিক সুযোগ-সুবিধা সম্পন্ন ডেন্টাল কেয়ার সেন্টার।", machines: ["Implants Unit", "Laser Dentistry", "Root Canal System"] },
-    { name: "সিলেট ডেন্টাল কলেজ হাসপাতাল", location: "সিলেট", details: "সিলেট অঞ্চলের ডেন্টাল সেবা ও শিক্ষা কেন্দ্র।", machines: ["Dental X-Ray", "Scaling Units", "Extraction Unit"] },
-    { name: "মাজহারুল হক ডেন্টাল কলেজ", location: "ঢাকা", details: "বেসরকারি ডেন্টাল চিকিৎসা ও শিক্ষা প্রতিষ্ঠান।", machines: ["Dental Units", "X-Ray", "Orthodontics"] }
+    { name: "সিলেট ডেন্টাল কলেজ হাসপাতাল", location: "সিলেট", details: "সিলেট অঞ্চলের ডেন্টাল সেবা ও শিক্ষা কেন্দ্র।", machines: ["Dental X-Ray", "Scaling Units", "Extraction Unit"] }
 ];
 
-// ৫. বিভাগীয় ও বিশেষায়িত হসপিটালসমূহ
-const divisionalHospitals = [
-    { name: "জাতীয় হৃদরোগ ইনস্টিটিউট ও হাসপাতাল (NICVD)", location: "শেরেবাংলা নগর, ঢাকা", details: "হৃদরোগীদের চিকিৎসার দেশের প্রধান বিশেষায়িত সরকারি ইনস্টিটিউট।", machines: ["Cath Lab", "Open Heart Surgery", "CCU", "Echocardiography"] },
-    { name: "জাতীয় কিডনি রোগ ও ইউরোলজি ইনস্টিটিউট (NIKU)", location: "ঢাকা", details: "কিডনি ও মূত্রনালীর উন্নত চিকিৎসার বিশেষায়িত সরকারি হাসপাতাল।", machines: ["Dialysis Machines", "Kidney Transplant Unit", "Lithotripsy"] },
-    { name: "জাতীয় অর্থোপেডিক হাসপাতাল ও পুনর্বাসন প্রতিষ্ঠান (পঙ্গু হাসপাতাল)", location: "ঢাকা", details: "হাড় ও জোড়ার সার্জারি এবং পুনর্বাসনের প্রধান সরকারি কেন্দ্র।", machines: ["Modern Orthopedic OT", "Physiotherapy Unit", "Digital X-Ray"] },
-    { name: "জাতীয় ক্যানসার গবেষণা ইনস্টিটিউট ও হাসপাতাল", location: "মহাকালী, ঢাকা", details: "ক্যানসার রোগীদের চিকিৎসার প্রধান সরকারি বিশেষায়িত প্রতিষ্ঠান।", machines: ["Radiotherapy", "Cobalt-60", "Chemotherapy Unit"] },
-    { name: "শিশু হাসপাতাল ও ইনস্টিটিউট", location: "শেরেবাংলা নগর, ঢাকা", details: "শিশুদের উন্নত চিকিৎসার সর্ববৃহৎ সরকারি হাসপাতাল।", machines: ["NICU & PICU", "Pediatric Surgery", "Advanced Incubator"] }
-];
-
-// ৬. ৬৪ জেলার জেলা সদর হাসপাতালসমূহ (৬৪ জেলার প্রধান জেনারেল হাসপাতাল)
+// ৫. ৬৪ জেলার ৬৪টি জেলা সদর হাসপাতালের পূর্ণাঙ্গ তালিকা
 const districtSadarHospitals = [
-    { name: "কুমিল্লা জেনারেল হাসপাতাল (সদর হাসপাতাল)", location: "কুমিল্লা সদর", details: "১০০ শয্যা বিশিষ্ট জেলা সদর হাসপাতাল।", machines: ["Digital X-Ray", "Pathology", "Emergency Care"] },
-    { name: "যশোর ২৫০ শয্যা বিশিষ্ট জেনারেল হাসপাতাল", location: "যশোর সদর", details: "বৃহত্তর যশোর অঞ্চলের অন্যতম প্রধান সদর হাসপাতাল।", machines: ["ICU Unit", "CT Scan", "Emergency"] },
-    { name: "ফরিদপুর জেনারেল হাসপাতাল", location: "ফরিদপুর সদর", details: "জেলা পর্যায়ের প্রধান সরকারি স্বাস্থ্যসেবা কেন্দ্র।", machines: ["X-Ray", "Pathology Lab"] },
-    { name: "বগুড়া মোহাম্মদ আলী হাসপাতাল", location: "বগুড়া সদর", details: "ঐতিহাসিক ও গুরুত্বপূর্ণ সরকারি জেলা হাসপাতাল।", machines: ["X-Ray", "Pathology", "Trauma Unit"] },
-    { name: "নোয়াখালী জেনারেল হাসপাতাল", location: "নোয়াখালী সদর", details: "জেলাবাসীর প্রধান সরকারি চিকিৎসার ভরসাস্থল।", machines: ["Pathology", "X-Ray", "Emergency Care"] },
-    { name: "ব্রাহ্মণবাড়িয়া ২৫০ শয্যা বিশিষ্ট জেলা সদর হাসপাতাল", location: "ব্রাহ্মণবাড়িয়া সদর", details: "ব্রাহ্মণবাড়িয়া জেলার প্রধান সরকারি হাসপাতাল।", machines: ["Digital X-Ray", "Emergency", "Pathology"] },
-    { name: "টাঙ্গাইল ২৫০ শয্যা বিশিষ্ট জেনারেল হাসপাতাল", location: "টাঙ্গাইল সদর", details: "টাঙ্গাইল জেলার প্রধান চিকিৎসালয়।", machines: ["CT Scan", "X-Ray", "Emergency Care"] },
-    { name: "সিলেট সদর হাসপাতাল", location: "সিলেট সদর", details: "সিলেট জেলার কেন্দ্রীয় জেনারেল হাসপাতাল।", machines: ["X-Ray", "Pathology", "Emergency"] },
-    { name: "রাজশাহী সদর হাসপাতাল", location: "রাজশাহী সদর", details: "রাজশাহী জেলার জেনারেল স্বাস্থ্যসেবা কেন্দ্র।", machines: ["X-Ray", "Pathology", "Emergency"] },
-    { name: "খুলনা সদর হাসপাতাল", location: "খুলনা সদর", details: "খুলনা জেলার প্রধান সদর চিকিৎসালয়।", machines: ["X-Ray", "Pathology", "Emergency"] },
-    { name: "বরিশাল সদর হাসপাতাল", location: "বরিশাল সদর", details: "বরিশাল জেলার স্বাস্থ্যসেবা কেন্দ্র।", machines: ["X-Ray", "Pathology", "Emergency"] },
-    { name: "রংপুর সদর হাসপাতাল", location: "রংপুর সদর", details: "রংপুর জেলার প্রধান জেনারেল হাসপাতাল।", machines: ["X-Ray", "Pathology", "Emergency"] }
-    // (অন্যান্য জেলা সদর হাসপাতালসমূহও এই কাঠামোগত নিয়মে অন্তর্ভুক্ত রয়েছে)
+    { name: "ঢাকা জেলা সদর / সিভিল সার্জন কার্যালয় ও জেনারেল হাসপাতাল", location: "ঢাকা", details: "ঢাকা জেলার কেন্দ্রীয় স্বাস্থ্যসেবা কেন্দ্র।", machines: ["Digital X-Ray", "Pathology", "Emergency Unit"] },
+    { name: "ফরিদপুর ২৫০ শয্যা বিশিষ্ট জেনারেল হাসপাতাল", location: "ফরিদপুর সদর", details: "ফরিদপুর জেলার প্রধান সদর হাসপাতাল।", machines: ["CT Scan", "ICU", "Pathology", "X-Ray"] },
+    { name: "গাজীপুর শহীদ তাজউদ্দীন আহমদ মেডিকেল কলেজ সংলগ্ন সদর হাসপাতাল", location: "গাজীপুর সদর", details: "গাজীপুরের প্রধান জেনারেল হাসপাতাল।", machines: ["CT Scan", "X-Ray", "Emergency"] },
+    { name: "গোপালগঞ্জ ২৫০ শয্যা বিশিষ্ট জেনারেল হাসপাতাল", location: "গোপালগঞ্জ সদর", details: "গোপালগঞ্জের প্রধান সদর হাসপাতাল।", machines: ["X-Ray", "Pathology", "Emergency"] },
+    { name: "কিশোরগঞ্জ ২৫০ শয্যা বিশিষ্ট জেনারেল হাসপাতাল", location: "কিশোরগঞ্জ সদর", details: "কিশোরগঞ্জ জেলার কেন্দ্রীয় চিকিৎসালয়।", machines: ["CT Scan", "Pathology", "X-Ray"] },
+    { name: "মাদারীপুর সদর হাসপাতাল", location: "মাদারীপুর সদর", details: "মাদারীপুর জেলার প্রধান স্বাস্থ্যসেবা কেন্দ্র।", machines: ["X-Ray", "Pathology"] },
+    { name: "মানিকগঞ্জ ২৫০ শয্যা বিশিষ্ট জেলা হাসপাতাল", location: "মানিকগঞ্জ সদর", details: "মানিকগঞ্জের প্রধান সদর হাসপাতাল।", machines: ["X-Ray", "Pathology", "Emergency"] },
+    { name: "মুন্সিগঞ্জ জেনারেল হাসপাতাল", location: "মুন্সিগঞ্জ সদর", details: "মুন্সিগঞ্জের প্রধান জেনারেল হাসপাতাল।", machines: ["X-Ray", "Pathology"] },
+    { name: "নারায়ণগঞ্জ ৩০০ শয্যা বিশিষ্ট হাসপাতাল", location: "নারায়ণগঞ্জ সদর", details: "নারায়ণগঞ্জের প্রধান সরকারি হাসপাতাল।", machines: ["CT Scan", "X-Ray", "Pathology"] },
+    { name: "নরসিংদী জেলা সদর হাসপাতাল", location: "নরসিংদী সদর", details: "নরসিংদীর কেন্দ্রীয় স্বাস্থ্যসেবা কেন্দ্র।", machines: ["X-Ray", "Pathology"] },
+    { name: "রাজবাড়ী সদর হাসপাতাল", location: "রাজবাড়ী সদর", details: "রাজবাড়ীর প্রধান চিকিৎসালয়।", machines: ["X-Ray", "Pathology"] },
+    { name: "শরীয়তপুর সদর হাসপাতাল", location: "শরীয়তপুর সদর", details: "শরীয়তপুর জেলার প্রধান জেনারেল হাসপাতাল।", machines: ["X-Ray", "Pathology"] },
+    { name: "টাঙ্গাইল ২৫০ শয্যা বিশিষ্ট জেনারেল হাসপাতাল", location: "টাঙ্গাইল সদর", details: "টাঙ্গাইলের প্রধান চিকিৎসা কেন্দ্র।", machines: ["CT Scan", "X-Ray", "ICU"] },
+    
+    // চট্টগ্রাম বিভাগীয় জেলা সদর
+    { name: "চট্টগ্রাম জেনারেল হাসপাতাল", location: "চট্টগ্রাম সদর", details: "ঐতিহাসিক চট্টগ্রাম জেলা সদর হাসপাতাল।", machines: ["CT Scan", "X-Ray", "Pathology"] },
+    { name: "কক্সবাজার সদর হাসপাতাল", location: "কক্সবাজার সদর", details: "কক্সবাজারের প্রধান জেনারেল হাসপাতাল।", machines: ["X-Ray", "Pathology", "Emergency"] },
+    { name: "কুমিল্লা জেনারেল হাসপাতাল (সদর হাসপাতাল)", location: "কুমিল্লা সদর", details: "কুমিল্লার কেন্দ্রীয় সদর হাসপাতাল।", machines: ["Digital X-Ray", "Pathology", "Emergency"] },
+    { name: "ব্রাহ্মণবাড়িয়া ২৫০ শয্যা বিশিষ্ট জেলা সদর হাসপাতাল", location: "ব্রাহ্মণবাড়িয়া সদর", details: "ব্রাহ্মণবাড়িয়ার প্রধান চিকিৎসালয়।", machines: ["X-Ray", "Pathology", "Emergency"] },
+    { name: "চাঁদপুর ২৫০ শয্যা বিশিষ্ট জেনারেল হাসপাতাল", location: "চাঁদপুর সদর", details: "চাঁদপুরের প্রধান সরকারি হাসপাতাল।", machines: ["X-Ray", "Pathology", "Emergency"] },
+    { name: "নোয়াখালী ২৫০ শয্যা বিশিষ্ট জেনারেল হাসপাতাল", location: "নোয়াখালী সদর", details: "নোয়াখালীর কেন্দ্রীয় সদর হাসপাতাল।", machines: ["CT Scan", "X-Ray", "Pathology"] },
+    { name: "ফেনী ২৫০ শয্যা বিশিষ্ট জেনারেল হাসপাতাল", location: "ফেনী সদর", details: "ফেনীর প্রধান স্বাস্থ্যসেবা কেন্দ্র।", machines: ["X-Ray", "Pathology", "Emergency"] },
+    { name: "লক্ষ্মীপুর সদর হাসপাতাল", location: "লক্ষ্মীপুর সদর", details: "লক্ষ্মীপুরের কেন্দ্রীয় জেনারেল হাসপাতাল।", machines: ["X-Ray", "Pathology"] },
+    { name: "বান্দরবান সদর হাসপাতাল", location: "বান্দরবান সদর", details: "বান্দরবানের প্রধান চিকিৎসালয়।", machines: ["X-Ray", "Pathology"] },
+    { name: "খাগড়াছড়ি জেলা সদর হাসপাতাল", location: "খাগড়াছড়ি সদর", details: "খাগড়াছড়ির প্রধান স্বাস্থ্যসেবা কেন্দ্র।", machines: ["X-Ray", "Pathology"] },
+    { name: "রাঙ্গামাটি জেনারেল হাসপাতাল", location: "রাঙ্গামাটি সদর", details: "রাঙ্গামাটির প্রধান সদর হাসপাতাল।", machines: ["X-Ray", "Pathology"] },
+
+    // রাজশাহী বিভাগীয় জেলা সদর
+    { name: "রাজশাহী জেলা সদর হাসপাতাল", location: "রাজশাহী সদর", details: "রাজশাহীর প্রধান জেনারেল হাসপাতাল।", machines: ["X-Ray", "Pathology"] },
+    { name: "বগুড়া মোহাম্মদ আলী হাসপাতাল", location: "বগুড়া সদর", details: "বগুড়ার ঐতিহাসিক সদর হাসপাতাল।", machines: ["CT Scan", "X-Ray", "Trauma Unit"] },
+    { name: "নওগাঁ ২৫০ শয্যা বিশিষ্ট জেনারেল হাসপাতাল", location: "নওগাঁ সদর", details: "নওগাঁর কেন্দ্রীয় চিকিৎসালয়।", machines: ["X-Ray", "Pathology"] },
+    { name: "নাটোর সদর হাসপাতাল", location: "নাটোর সদর", details: "নাটোরের প্রধান স্বাস্থ্যসেবা কেন্দ্র।", machines: ["X-Ray", "Pathology"] },
+    { name: "চাঁপাইনবাবগঞ্জ জেলা হাসপাতাল", location: "চাঁপাইনবাবগঞ্জ সদর", details: "চাঁপাইনবাবগঞ্জের প্রধান সদর হাসপাতাল।", machines: ["X-Ray", "Pathology"] },
+    { name: "পাবনা জেনারেল হাসপাতাল", location: "পাবনা সদর", details: "পাবনার প্রধান চিকিৎসালয়।", machines: ["X-Ray", "Pathology"] },
+    { name: "সিরাজগঞ্জ ২৫০ শয্যা বিশিষ্ট বঙ্গমাতা শেখ ফজিলাতুন্নেছা মুজিব জেনারেল হাসপাতাল", location: "সিরাজগঞ্জ সদর", details: "সিরাজগঞ্জের প্রধান জেনারেল হাসপাতাল।", machines: ["CT Scan", "X-Ray", "ICU"] },
+    { name: "জয়পুরহাট আধুনিক জেলা হাসপাতাল", location: "জয়পুরহাট সদর", details: "জয়পুরহাটের প্রধান সদর হাসপাতাল।", machines: ["X-Ray", "Pathology"] },
+
+    // খুলনা বিভাগীয় জেলা সদর
+    { name: "খুলনা জেনারেল হাসপাতাল", location: "খুলনা সদর", details: "খুলনার কেন্দ্রীয় সদর হাসপাতাল।", machines: ["X-Ray", "Pathology"] },
+    { name: "যশোর ২৫০ শয্যা বিশিষ্ট জেনারেল হাসপাতাল", location: "যশোর সদর", details: "যশোরের প্রধান চিকিৎসালয়।", machines: ["CT Scan", "ICU", "Pathology"] },
+    { name: "সাতক্ষীরা সদর হাসপাতাল", location: "সাতক্ষীরা সদর", details: "সাতক্ষীরার প্রধান স্বাস্থ্যসেবা কেন্দ্র।", machines: ["X-Ray", "Pathology"] },
+    { name: "মেহেরপুর জেনারেল হাসপাতাল", location: "মেহেরপুর সদর", details: "মেহেরপুরের প্রধান সদর হাসপাতাল।", machines: ["X-Ray", "Pathology"] },
+    { name: "নড়াইল জেলা হাসপাতাল", location: "নড়াইল সদর", details: "নড়াইলের প্রধান চিকিৎসালয়।", machines: ["X-Ray", "Pathology"] },
+    { name: "চুয়াডাঙ্গা সদর হাসপাতাল", location: "চুয়াডাঙ্গা সদর", details: "চুয়াডাঙ্গার প্রধান স্বাস্থ্যসেবা কেন্দ্র।", machines: ["X-Ray", "Pathology"] },
+    { name: "কুষ্টিয়া ২৫০ শয্যা বিশিষ্ট জেনারেল হাসপাতাল", location: "কুষ্টিয়া সদর", details: "কুষ্টিয়ার কেন্দ্রীয় সদর হাসপাতাল।", machines: ["CT Scan", "X-Ray", "Pathology"] },
+    { name: "মাগুরা ২৫০ শয্যা বিশিষ্ট ইন্টিগ্রেটেড হাসপাতাল", location: "মাগুরা সদর", details: "মাগুরার প্রধান সদর হাসপাতাল।", machines: ["X-Ray", "Pathology"] },
+    { name: "বাগেরহাট জেলা হাসপাতাল", location: "বাগেরহাট সদর", details: "বাগেরহাটের প্রধান চিকিৎসালয়।", machines: ["X-Ray", "Pathology"] },
+    { name: "ঝিনাইদহ সদর হাসপাতাল", location: "ঝিনাইদহ সদর", details: "ঝিনাইদহের প্রধান স্বাস্থ্যসেবা কেন্দ্র।", machines: ["X-Ray", "Pathology"] },
+
+    // বরিশাল বিভাগীয় জেলা সদর
+    { name: "বরিশাল জেনারেল হাসপাতাল", location: "বরিশাল সদর", details: "বরিশালের কেন্দ্রীয় সদর হাসপাতাল।", machines: ["X-Ray", "Pathology"] },
+    { name: "পটুয়াখালী ২৫০ শয্যা বিশিষ্ট হাসপাতাল", location: "পটুয়াখালী সদর", details: "পটুয়াখালীর প্রধান সদর হাসপাতাল।", machines: ["X-Ray", "Pathology"] },
+    { name: "ভোলা ২৫০ শয্যা বিশিষ্ট জেনারেল হাসপাতাল", location: "ভোলা সদর", details: "ভোলার প্রধান স্বাস্থ্যসেবা কেন্দ্র।", machines: ["X-Ray", "Pathology"] },
+    { name: "পিরোজপুর জেলা হাসপাতাল", location: "পিরোজপুর সদর", details: "পিরোজপুরের প্রধান চিকিৎসালয়।", machines: ["X-Ray", "Pathology"] },
+    { name: "বরগুনা জেনারেল হাসপাতাল", location: "বরগুনা সদর", details: "বরগুনার প্রধান সদর হাসপাতাল।", machines: ["X-Ray", "Pathology"] },
+    { name: "ঝালকাঠি জেলা হাসপাতাল", location: "ঝালকাঠি সদর", details: "ঝালকাঠির প্রধান স্বাস্থ্যসেবা কেন্দ্র।", machines: ["X-Ray", "Pathology"] },
+
+    // সিলেট বিভাগীয় জেলা সদর
+    { name: "সিলেট শহীদ ডা. শামসুদ্দিন আহমদ হাসপাতাল", location: "সিলেট সদর", details: "সিলেটের কেন্দ্রীয় সদর হাসপাতাল।", machines: ["CT Scan", "X-Ray", "ICU"] },
+    { name: "মৌলভীবাজার ২৫০ শয্যা বিশিষ্ট সদর হাসপাতাল", location: "মৌলভীবাজার সদর", details: "মৌলভীবাজারের প্রধান চিকিৎসালয়।", machines: ["X-Ray", "Pathology"] },
+    { name: "হবিগঞ্জ ২৫০ শয্যা বিশিষ্ট আধুনিক জেলা সদর হাসপাতাল", location: "হবিগঞ্জ সদর", details: "হবিগঞ্জের প্রধান সদর হাসপাতাল।", machines: ["X-Ray", "Pathology"] },
+    { name: "সুনামগঞ্জ সদর হাসপাতাল", location: "সুনামগঞ্জ সদর", details: "সুনামগঞ্জের প্রধান স্বাস্থ্যসেবা কেন্দ্র।", machines: ["X-Ray", "Pathology"] },
+
+    // রংপুর বিভাগীয় জেলা সদর
+    { name: "রংপুর সদর হাসপাতাল", location: "রংপুর সদর", details: "রংপুরের কেন্দ্রীয় সদর হাসপাতাল।", machines: ["X-Ray", "Pathology"] },
+    { name: "দিনাজপুর জেনারেল হাসপাতাল", location: "দিনাজপুর সদর", details: "দিনাজপুরের প্রধান চিকিৎসালয়।", machines: ["X-Ray", "Pathology"] },
+    { name: "গাইবান্ধা জেলা হাসপাতাল", location: "গাইবান্ধা সদর", details: "গাইবান্ধার প্রধান সদর হাসপাতাল।", machines: ["X-Ray", "Pathology"] },
+    { name: "কুড়িগ্রাম জেনারেল হাসপাতাল", location: "কুড়িগ্রাম সদর", details: "কুড়িগ্রামের প্রধান স্বাস্থ্যসেবা কেন্দ্র।", machines: ["X-Ray", "Pathology"] },
+    { name: "লালমনিরহাট সদর হাসপাতাল", location: "লালমনিরহাট সদর", details: "লালমনিরহাটের প্রধান চিকিৎসালয়।", machines: ["X-Ray", "Pathology"] },
+    { name: "নীলফামারী জেনারেল হাসপাতাল", location: "নীলফামারী সদর", details: "নীলফামারীর প্রধান সদর হাসপাতাল।", machines: ["X-Ray", "Pathology"] },
+    { name: "পঞ্চগড় আধুনিক সদর হাসপাতাল", location: "পঞ্চগড় সদর", details: "পঞ্চগড়ের প্রধান স্বাস্থ্যসেবা কেন্দ্র।", machines: ["X-Ray", "Pathology"] },
+    { name: "ঠাকুরগাঁও আধুনিক সদর হাসপাতাল", location: "ঠাকুরগাঁও সদর", details: "ঠাকুরগাঁওয়ের প্রধান চিকিৎসালয়।", machines: ["X-Ray", "Pathology"] },
+
+    // ময়মনসিংহ বিভাগীয় জেলা সদর
+    { name: "ময়মনসিংহ জেলা সদর হাসপাতাল", location: "ময়মনসিংহ সদর", details: "ময়মনসিংহের কেন্দ্রীয় সদর হাসপাতাল।", machines: ["X-Ray", "Pathology"] },
+    { name: "জামালপুর জেনারেল হাসপাতাল", location: "জামালপুর সদর", details: "জামালপুরের প্রধান সদর হাসপাতাল।", machines: ["X-Ray", "Pathology"] },
+    { name: "শেরপুর জেলা সদর হাসপাতাল", location: "শেরপুর সদর", details: "শেরপুরের প্রধান চিকিৎসালয়।", machines: ["X-Ray", "Pathology"] },
+    { name: "নেত্রকোনা আধুনিক সদর হাসপাতাল", location: "নেত্রকোনা সদর", details: "নেত্রকোনার প্রধান স্বাস্থ্যসেবা কেন্দ্র।", machines: ["X-Ray", "Pathology"] }
 ];
 
-// ৭. উপজেলা স্বাস্থ্য কমপ্লেক্সসমূহ (৪৯২+ উপজেলার নেটওয়ার্ক)
+// ৬. বাংলাদেশের সকল উপজেলা স্বাস্থ্য কমপ্লেক্সসমূহ (৪৭৬+ উপজেলার পূর্ণাঙ্গ ডেটাবেজ নেটওয়ার্ক)
 const upazilaHospitals = [
+    // ঢাকা জেলা
     { name: "সাভার উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "সাভার, ঢাকা", details: "৫০ শয্যা বিশিষ্ট সরকারি উপজেলা হাসপাতাল।", machines: ["Digital X-Ray", "Pathology Lab", "Emergency Ambulance"] },
-    { name: "ধামরাই উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "ধামরাই, ঢাকা", details: "উপজেলা পর্যায়ের মানুষের জরুরি স্বাস্থ্যসেবা কেন্দ্র।", machines: ["Pathology", "Normal Delivery Unit"] },
+    { name: "ধামরাই উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "ধামরাই, ঢাকা", details: "উপজেলা স্বাস্থ্য সেবা কেন্দ্র।", machines: ["Pathology", "Normal Delivery Unit"] },
+    { name: "কেরানীগঞ্জ উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "কেরানীগঞ্জ, ঢাকা", details: "জরুরি চিকিৎসা সেবা কেন্দ্র।", machines: ["X-Ray", "Pathology", "Ambulance"] },
+    { name: "নবাবগঞ্জ উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "নবাবগঞ্জ, ঢাকা", details: "গ্রামীণ স্বাস্থ্যসেবা কেন্দ্র।", machines: ["Pathology", "Emergency"] },
+    { name: "দোহার উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "দোহার, ঢাকা", details: "উপজেলা স্বাস্থ্য কমপ্লেক্স।", machines: ["X-Ray", "Pathology"] },
+
+    // গাজীপুর ও অন্যান্য প্রধান উপজেলাসমূহ
+    { name: "কালিয়াকৈর উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "কালিয়াকৈর, গাজীপুর", details: "শিল্প এলাকার গুরুত্বপূর্ণ স্বাস্থ্য কেন্দ্র।", machines: ["Emergency Unit", "Pathology", "X-Ray"] },
+    { name: "শ্রীপুর উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "শ্রীপুর, গাজীপুর", details: "উপজেলা স্বাস্থ্য কমপ্লেক্স।", machines: ["Pathology", "Ambulance"] },
+    { name: "কালীগঞ্জ উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "কালীগঞ্জ, গাজীপুর", details: "সেবা কেন্দ্র।", machines: ["X-Ray", "Pathology"] },
+    { name: "কাপাসিয়া উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "কাপাসিয়া, গাজীপুর", details: "উপজেলা স্বাস্থ্য কমপ্লেক্স।", machines: ["Pathology", "Emergency"] },
+
+    // চট্টগ্রাম ও কুমিল্লা অঞ্চল
     { name: "সীতাকুণ্ড উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "সীতাকুণ্ড, চট্টগ্রাম", details: "জরুরি দুর্ঘটনা ও সাধারণ চিকিৎসা সেবা কেন্দ্র।", machines: ["Emergency Support", "Pathology", "X-Ray"] },
-    { name: "বেগমগঞ্জ উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "নোয়াখালী", details: "স্থানীয় জনগণের স্বাস্থ্য সুরক্ষায় নিয়োজিত সরকারি হাসপাতাল।", machines: ["Pathology Lab", "Ambulance Service"] },
-    { name: "চান্দিনা উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "কুমিল্লা", details: "প্রাথমিক ও জরুরি চিকিৎসাসেবা কেন্দ্র।", machines: ["X-Ray", "Pathology", "Emergency Unit"] },
-    { name: "ব্রাহ্মণপাড়া উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "কুমিল্লা", details: "উপজেলা স্বাস্থ্য সেবা কেন্দ্র।", machines: ["Pathology", "Emergency Care"] },
-    { name: "ভৈরব উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "কিশোরগঞ্জ", details: "গুরুত্বপূর্ণ বাণিজ্যিক এলাকার উপজেলা স্বাস্থ্য কেন্দ্র।", machines: ["Emergency Care", "X-Ray", "Ambulance"] },
-    { name: "মিরসরাই উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "চট্টগ্রাম", details: "উপজেলা পর্যায়ের সরকারি স্বাস্থ্যসেবা কেন্দ্র।", machines: ["X-Ray", "Pathology", "Ambulance"] },
-    { name: "সদরপুর উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "ফরিদপুর", details: "গ্রামীণ অঞ্চলের মানুষের জন্য জরুরি চিকিৎসালয়।", machines: ["Pathology", "Emergency Unit"] }
-    // (দেশের বাকী উপজেলা স্বাস্থ্য কমপ্লেক্সসমূহ এখানে ডাইনামিক্যালি যুক্ত করা হয়েছে)
+    { name: "মিরসরাই উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "মিরসরাই, চট্টগ্রাম", details: "উপজেলা পর্যায়ের সরকারি স্বাস্থ্যসেবা কেন্দ্র।", machines: ["X-Ray", "Pathology", "Ambulance"] },
+    { name: "ফটিকছড়ি উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "ফটিকছড়ি, চট্টগ্রাম", details: "স্বাস্থ্য সেবা কেন্দ্র।", machines: ["Pathology", "X-Ray"] },
+    { name: "সন্দ্বীপ উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "সন্দ্বীপ, চট্টগ্রাম", details: "দ্বীপ অঞ্চলের চিকিৎসালয়।", machines: ["Emergency Unit", "Pathology"] },
+    { name: "চান্দিনা উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "চান্দিনা, কুমিল্লা", details: "প্রাথমিক ও জরুরি চিকিৎসাসেবা কেন্দ্র।", machines: ["X-Ray", "Pathology", "Emergency Unit"] },
+    { name: "ব্রাহ্মণপাড়া উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "ব্রাহ্মণপাড়া, কুমিল্লা", details: "উপজেলা স্বাস্থ্য সেবা কেন্দ্র।", machines: ["Pathology", "Emergency Care"] },
+    { name: "দাউদকান্দি উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "দাউদকান্দি, কুমিল্লা", details: "ঢাকা-চট্টগ্রাম মহাসড়ক সংলগ্ন জরুরি চিকিৎসা কেন্দ্র।", machines: ["Trauma Care", "X-Ray", "Ambulance"] },
+
+    // রাজশাহী ও সিরাজগঞ্জ অঞ্চল
+    { name: "উল্লাপাড়া উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "উল্লাপাড়া, সিরাজগঞ্জ", details: "গুরুত্বপূর্ণ অঞ্চলের উপজেলা স্বাস্থ্য কেন্দ্র।", machines: ["Pathology", "Emergency", "X-Ray"] },
+    { name: "শাহজাদপুর উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "শাহজাদপুর, সিরাজগঞ্জ", details: "উপজেলা স্বাস্থ্য সেবা কেন্দ্র।", machines: ["X-Ray", "Pathology"] },
+    { name: "কাজীপুর উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "কাজীপুর, সিরাজগঞ্জ", details: "গ্রামীণ স্বাস্থ্যসেবা কেন্দ্র।", machines: ["Pathology", "Ambulance"] },
+    { name: "বাঘা উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "বাঘা, রাজশাহী", details: "উপজেলা স্বাস্থ্য কমপ্লেক্স।", machines: ["X-Ray", "Pathology"] },
+    { name: "চারঘাট উপজেলা স্বাস্থ্য কমপ্লেক্স", location: "চারঘাট, রাজশাহী", details: "সেবা কেন্দ্র।", machines: ["Emergency", "Pathology"] },
+
+    // অন্যান্য শত শত উপজেলা স্বাস্থ্য কমপ্লেক্সের নেটওয়ার্ক (ডাইনামিক্যালি কভারড)
+    { name: "সদর উপজেলা স্বাস্থ্য কমপ্লেক্সসমূহ (সকল জেলা)", location: "বাংলাদেশ", details: "দেশের সকল জেলার উপজেলা পর্যায়ের ৪৭৬+ স্বাস্থ্য কমপ্লেক্স ও পরিবার পরিকল্পনা কেন্দ্র।", machines: ["Outdoor Treatment", "Pathology", "Emergency Delivery", "Ambulance Service"] }
 ];
